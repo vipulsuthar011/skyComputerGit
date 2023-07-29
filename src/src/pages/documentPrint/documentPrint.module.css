@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+* {
+    font-family: 'Merriweather', serif;
+}
+
+.mainBillWrapper {
+    background-color: white;
+    font-family: 'Merriweather', serif;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    /* display: none; */
+    /* height: 100vh; */
+    /* width: 100%; */
+    border: 1px solid black;
+    margin: 40px;
+    padding: 40px 50px;
+}
+
+.title {
+    font-size: 78px;
+    text-align: center;
+    font-weight: 900;
+    letter-spacing: 1.5;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.adminAddress {
+    font-size: 22px;
+}
+
+.adminAddress a {
+    text-decoration: none;
+    color: black;
+}
+
+.emailGstWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* quotationTitle */
+.quotationTitle {
+    text-decoration: underline;
+    padding-bottom: 20px;
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.clientAddress {
+    margin-bottom: 7px;
+}
+
+.quationSubject {
+    margin-top: 25px;
+}
+
+
+/* table */
+.quationTable {
+    width: 100%;
+    font-weight: 500;
+    color: black;
+    margin: 22px 0px;
+}
+
+.quationTable td,
+th {
+    border: 1px solid grey;
+    padding: 5px 8px;
+    color: rgb(82, 82, 82);
+    font-weight: 600;
+}
+
+.quationTable th {
+    padding: 10px 8px;
+    font-weight: 900;
+    font-size: 18px;
+    color: black;
+}
+
+/* term and condition */
+.termNote {
+    font-weight: 700;
+    padding-bottom: 5px;
+}
+
+.termOl {
+    padding-left: 50px;
+}
+
+
+.accountDetail {
+    font-weight: 700;
+    margin-top: 30px;
+}
+
+.tableSrNO {
+
+    width: 10%;
+    white-space: nowrap;
+}
+
+.tableProduct {
+    width: 50%;
+}
+
+.tablePrice {
+    width: 10%;
+    white-space: nowrap;
+
+}
+
+.tableQuantity {
+    width: 10%;
+    white-space: nowrap;
+
+}
+
+.tableTotal {
+    /* width: 100%; */
+    white-space: nowrap;
+}

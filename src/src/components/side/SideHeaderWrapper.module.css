@@ -1,0 +1,14 @@
+.componentWrapperMax{
+    margin-left: 20rem;
+    transition: 0.5s all ease-in-out;
+    /* margin-top: 50px; */
+    padding-top: 75px;
+    /* background-color: #F8F8F7; */
+}
+.componentWrapperMin{
+    margin-left: 5rem;
+    transition: 0.5s all ease-in-out;
+    padding-top: 75px;
+    /* background-color: #F8F8F7; */
+    /* height: 100vh; */
+}

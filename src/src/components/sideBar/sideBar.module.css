@@ -1,0 +1,259 @@
+.sideBarMainWrapperMax{
+    /* background-color: red; */
+    background-color: #ffffff;
+    box-shadow:0px 0px 20px 2px rgb(236, 234, 234);
+
+    
+    width: 20rem;
+    /* position: f; */
+    height: 100vh;
+    transition: 0.5s all ease-in-out;
+    display: inline-block;
+    position: fixed;
+    color: black;
+    /* padding-top: 80px; */
+    overflow-x: hidden;
+    
+}
+.sideBarMainWrapperMin{
+    background-color: #ffffff;
+    box-shadow:0px 0px 20px 2px rgb(236, 234, 234);
+    width: 5rem;
+    /* padding-top: 80px; */
+    overflow-x: hidden;
+    /* position: f; */
+    height: 100vh;
+    color: black;
+    position: fixed;
+    transition: 0.5s all ease-in-out;
+    display: inline-block;
+    
+}
+
+.sideBarMainWrapperMin a, .sideBarMainWrapperMax a{
+    text-decoration: none;
+    color: black;
+}
+
+
+/* side bar logo and company name wrapper css start */
+.logoSectionMax{
+    background-color: #ffffff;
+    width: 20rem;
+    transition: 0.5s all ease-in-out;
+    padding: 10px 25px;
+    display: flex;
+    align-items: center;
+    /* width: 100%; */
+    /* padding-top: 30px; */
+
+    
+}
+.logoSectionMin{
+    background-color: #ffffff;
+    width: 5rem;
+    padding: 10px 12px; 
+    transition: 0.5s all ease-in-out;
+    display: flex;
+    align-items: center;
+    /* padding-top: 30px; */
+}
+
+
+.logoWrapperMax{
+    width: 55px;
+    height: 55px;
+    background-color: white;
+    /* padding: ; */
+}
+.logoWrapperMin{
+    width: 55px;
+    height: 55px;
+    background-color: white;
+    /* padding: ; */
+}
+.logo{
+    width: 100%;
+    background-color: white;
+}
+
+.restaurantNameMax{
+    color: black;
+    font-weight: 800;
+    margin-left: 15px;
+    font-size: 18px;
+}
+.restaurantNameMin{
+    color: black;
+    display: none;
+}
+
+/* side bar logo and company name wrapper css end */
+
+.elementWrapperMin{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding:  12px 15px;
+    /* border: 2px solid red; */
+    margin: 0px 8px;
+    border-radius: 12px;
+    transition: .3s all ease-in-out;
+}
+.elementWrapperMin:hover{
+    background-color:#FFCA40 ;
+}
+.elementWrapperMax{
+    display: flex;
+    align-items: center;
+    margin: 3px 25px;
+    padding:  12px 15px;
+    border-radius: 12px;
+    /* border: 2px solid red; */
+    transition: .3s all ease-in-out;
+}
+.elementWrapperMax:hover{
+   background-color:#FFCA40 ;
+}
+.active{
+   background-color:#FFCA40 ;
+}
+.elementLogo{
+    font-size: 30px;
+    /* margin-right: 10px; */
+    /* color: ; */
+}
+
+.elementNameMax{
+ font-size: 16px;   
+ font-weight: 600;
+ /* transition: 5.5s all ease-in-out; */
+ margin-left: 10px;
+
+}
+.elementNameMin{
+    display: none;
+    transition: 0.5s all ease-in-out;
+}
+
+.otherTitleMax{
+    font-size: 14px;
+    color: #808080;
+    font-weight: 700;
+    margin: 0px 25px;
+    margin-top: 25px;
+    margin-bottom: 8px;
+    padding:  0px 15px;
+    
+}
+.otherTitleMin{
+    display: none;
+    font-size: 14px;
+    color: #808080;
+    font-weight: 700;
+    margin: 0px 25px;
+    margin-top: 25px;
+    margin-bottom: 8px;
+    padding:  0px 15px;
+    
+}
+
+
+/* nav LInk start */
+/* nav LInk end */
+
+.restroProfileMax{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: red; */
+    border-radius: 16px;
+    margin: 20px 40px;
+    margin-top: 30px;
+    padding:  22px 15px;
+    color: black;
+    /* border: 2px solid red; */
+    border: 1px solid #F8F8F7;
+    box-shadow:0px 0px 3px 2px rgb(240, 240, 240);
+}
+
+.restroProfileWrapperMax{
+    width: 100%;
+    width: 65px;
+    margin: auto;
+    height: 65px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.restroProfileWrapperMin{
+    width: 45px;
+    margin: auto;
+    height: 45px;
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+.restroProfile{
+    width: 100%;
+}
+
+.restroNameMax{
+ font-weight: 700;
+ margin-top: 10px;
+}
+.restroNameMin{
+    display: none;
+}
+
+.restroTagLineMax{
+    font-size: 12px;
+    color: #808080;
+}
+.restroTagLineMin{
+    display: none;
+}
+
+.restroOpenProfileMax{
+    margin-top: 12px;
+    /* margin-bottom: ; */
+    padding: 8px 25px;
+    border-radius: 8px;
+    background-color: #F8F8F7;
+    border: 1px solid #F8F8F7;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow:0px 0px 3px 2px rgb(240, 240, 240);
+    transition: .3s all ease-in-out;
+    /* width: 100; */
+}
+.restroOpenProfileMax:hover{
+    background-color: #FFCA40;
+    border: 1px solid #FFCA40;
+    box-shadow: none;
+}
+.restroOpenProfileMin{
+   display: none;
+}
+
+
+
+.copyRightMax{
+    /* display: none */
+    /* position: absolute; */
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    bottom: 10px;
+    /* left: 50%; */
+    /* transform: translate(-50%); */
+    font-size: 12px;
+    color: #808080;
+
+}
+.copyRightMin{
+    display: none
+}

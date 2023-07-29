@@ -1,0 +1,23 @@
+{
+  "name": "electron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec electron .",
+    "dev": "concurrently \" nodemon --exec electron .\" \"cd src && npm start\" \"cd backend && npm run start",
+    "build": "cd src && npm run build && cd.. && electron-builder"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron-is-dev": "^2.0.0",
+    "nodemon": "^2.0.22",
+    "react-select-search": "^4.1.6"
+  },
+  "devDependencies": {
+    "electron": "^25.1.1"
+  }
+}

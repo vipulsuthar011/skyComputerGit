@@ -1,0 +1,204 @@
+.headerMainWrapper{
+    width: 100%;
+    position: fixed;
+    z-index: 10;
+    
+}
+
+
+.headerWrapperMax{
+    display: flex;
+    align-items: center;
+    justify-content:space-between ;
+    margin-left: 20rem;
+    padding-right: 20px;
+    height: 75px;
+    background-color: #F1F1F6;
+    transition: .5s all ease-in-out;
+    z-index: 10;
+}
+.headerWrapperMin{
+    display: flex;
+    align-items: center;
+    justify-content:space-between ;
+    margin-left: 5rem;
+    height: 75px;
+    background-color: #F1F1F6;
+    transition: .5s all ease-in-out;
+    z-index: 10;
+    padding-right: 20px;
+}
+
+
+/* header */
+.handleSideBarButtonWrapper{
+        height: 50px;
+        width: 55px;
+        background-color: #F8F8F7;
+        border: 1px solid #F8F8F7;
+        margin-left: 10px;
+        border-radius: 8px;
+        font-size: 20px;
+        transition: .3s all ease-in-out;
+        box-shadow:0px 0px 5px 3px rgba(230, 230, 230, 0.788);
+}
+.handleSideBarButtonWrapper:hover{ 
+        background-color: #FFCA40;
+        border: 1px solid #FFCA40;
+}
+.handleSideBarButtonMin{
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transition: .3s all ease-in-out;
+
+}
+.handleSideBarButtonMax{
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transition: .3s all ease-in-out;
+
+}
+
+
+/* Header Search Start */
+
+
+
+.headerSearchWrapper{
+    margin-right: 30px;
+    /* position: relative; */
+    /* z-index: 1 !important; */
+}
+.HeaderSearch{
+    padding: 14px 22px;
+    border-radius: 12px;
+    background-color: white;
+    border: none;
+}
+.HeaderSearch::after{
+    font-family: "FontAwesome";
+    content: '\f002';
+}
+.searchSearchIcon{
+    margin-right: -20px;
+    z-index: 10000 !important;
+    /* font-size: 222px; */
+}
+/* Header Search End */
+
+
+
+.notificationIconWrapper{
+    font-size: 26px;
+    margin-right: 15px;
+}
+.noficationIcon{
+    width: 100%;
+}
+
+
+.threeDotProfileBtn{
+    /* padding: 5px 0px; */
+    padding-bottom: 5px;
+    cursor: pointer;
+    padding-left: 10px;
+    border-left: 5px solid transparent;
+    transition: .3s all ease-in-out;
+    text-transform: capitalize;
+    font-weight: 600;
+}
+.threeDotProfileBtn:hover{
+    /* padding: 5px 0px; */
+    padding-bottom: 5px;
+    cursor: pointer;
+    border-left: 5px solid #FFCA40;
+    border-radius: 2px;
+    font-weight: 700;
+    color: grey;
+}
+
+/* Three dot Wrapper css Start */
+
+.threeDotWrapper{
+    font-size: 26px;
+    position: relative;
+    /* background-color: red; */
+    cursor: pointer;
+   
+}
+
+
+
+.threeDot{
+    width: 100%;
+    position: relative;
+}
+
+.threeDotOpen{
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow:0px 0px 3px 2px rgb(240, 240, 240);
+    padding:15px 10px;
+   
+    align-items: left;
+    font-size: 18px;
+    
+}
+.threeDotOpen a{
+   text-decoration: none;
+   color: black;
+}
+
+.threeDotProfileBtn{
+    /* padding: 5px 0px; */
+    padding-bottom: 5px;
+    cursor: pointer;
+    padding-left: 10px;
+    border-left: 5px solid transparent;
+    transition: .3s all ease-in-out;
+    text-transform: capitalize;
+    font-weight: 600;
+    padding-right: 40px;
+    /* border-bottom: 1px solid rgb(235, 235, 235); */
+}
+.threeDotProfileBtn:hover{
+    /* padding: 5px 0px; */
+    padding-bottom: 5px;
+    cursor: pointer;
+    border-left: 5px solid #FFCA40;
+    border-radius: 2px;
+    font-weight: 700;
+    color: grey;
+}
+
+.threeDotLogoutBtn{
+    /* padding: 5px 0px; */
+    /* padding-bottom: 5px; */
+    cursor: pointer;
+    padding-left: 10px;
+    border-left: 5px solid transparent;
+    transition: .3s all ease-in-out;
+    text-transform: capitalize;
+    font-weight: 600;
+    padding-right: 40px;
+    padding-top: 5px;
+}
+.threeDotLogoutBtn:hover{
+    /* padding: 5px 0px; */
+    /* padding-bottom: 5px; */
+    cursor: pointer;
+    border-left: 5px solid #FFCA40;
+    border-radius: 2px;
+    font-weight: 700;
+    color: grey;
+}
+/* Three dot Wrapper css End */

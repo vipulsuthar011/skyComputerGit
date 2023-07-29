@@ -1,0 +1,129 @@
+
+
+
+
+*{
+  font-family:"Raleway";
+}
+
+.loader{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+transform: translate(-50%,-50%);
+width: 50vw;
+height: 200px;
+}
+
+.edit-icon{
+  position: absolute;
+  bottom: 26px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+.delete-icon{
+  position: absolute;
+  bottom: 2px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.selectCategory{
+  background-color: RGB(255, 243, 235);
+  border-bottom: 1px solid grey;
+  color: grey;
+
+  border: none;
+    border-bottom: 1px solid grey;
+    background-color: transparent;
+    margin-bottom: 20px;
+    padding: 6px 2px;
+}
+.no-data-found-image-wrapper{
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  /* background-color: red; */
+}
+
+
+
+.btn:focus {
+  outline: none !important;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+  outline: none;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.panel,
+.panel-group .panel-heading+.panel-collapse>.panel-body {
+  border: none;
+}
+
+:focus {
+  outline: 0 !important;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0) !important;
+}
+
+
+/* Scroll Bar css Start */
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+  /* border-radius:81px; */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #dadada;
+  transition: .3s all ease-in-out;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #bababa;
+}
+/* Scroll Bar Css END */
+
+/* Media query for 425px (large mobile) */
+@media only screen and (max-width:425px) {
+
+  .edit-icon{
+    position: absolute;
+    bottom: 24px;
+    right: 8px;
+    width: 13px;
+    height: 13px;
+    cursor: pointer;
+  }
+  .delete-icon{
+    position: absolute;
+    bottom: 4px;
+    right: 8px;
+    width: 13px;
+    height: 13px;
+    cursor: pointer;
+  }
+} 

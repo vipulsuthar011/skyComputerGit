@@ -1,0 +1,298 @@
+/* Add Items Main wrapper */
+.addItemsMainWrapper{
+    /* background-color: #F8F8F7; */
+    padding: 30px 22px;
+    background-color: #F1F1F6;
+    /* height: 100vh; */
+    min-height: calc(100vh - 80px);
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/* left side wrapper */
+.leftSideWrapper{
+    width: 40%;    
+    padding: 50px 20px 0px 60px;
+}
+
+/* add item title  */
+.addItemTitle{
+    font-size: 28px;
+    font-weight: 800;
+    text-transform: uppercase;
+    
+}
+
+/* addButtonWrapper */
+.addButtonWrapper{
+    margin-top: 25px;
+}
+
+/* add procduct button */
+.addProductBtn{
+    font-size: 20px;
+    border-radius: 12px;
+    padding: 15px 20px;
+    width: 80%;
+    cursor: pointer;
+    font-weight: 700;
+    text-transform: capitalize;
+    background-color: #ffffff8a;
+    transition: .3s all ease-in-out;
+}
+.addButtonWrapper a{
+    color: black;
+    text-decoration: none;
+}
+/* add procduct button hover*/
+.addProductBtn:hover{
+background-color: #FFFFFF;
+box-shadow: 1px 3px 23px 8px rgb(240, 240, 240);
+}
+/* add procduct button focus*/
+.addProductBtn:focus{
+background-color: #FFFFFF;
+box-shadow: 1px 3px 23px 8px rgb(240, 240, 240);
+}
+
+/* add catagory button */
+.addCategoryBtn{
+    font-size: 20px;
+    border-radius: 12px;
+    padding: 15px 20px;
+    width: 80%;
+    cursor: pointer;
+    font-weight: 700;
+    text-transform: capitalize;
+    background-color: #ffffff8a;
+    transition: .3s all ease-in-out;
+    margin-top: 18px;
+}
+/* add catagory button hover */
+.addCategoryBtn:hover{
+background-color: #FFFFFF;
+box-shadow: 1px 3px 23px 8px rgb(240, 240, 240);
+}
+/* add catagory button focus */
+.addCategoryBtn:focus{
+background-color: #FFFFFF;
+box-shadow: 1px 3px 23px 8px rgb(240, 240, 240);
+}
+
+/* if any btn is active than this class will apply */
+.btnActive{
+    background-color: #FFFFFF;
+    box-shadow: 1px 3px 23px 8px rgb(240, 240, 240);
+    font-size: 20px;
+    border-radius: 12px;
+    padding: 15px 20px;
+    width: 80%;
+    cursor: pointer;
+    font-weight: 700;
+    text-transform: capitalize;
+    /* background-color: #ffffff8a; */
+    transition: .3s all ease-in-out;
+    margin-top: 18px;
+    }
+
+
+
+
+/* right side wrapper */
+.rightSideWrapper{
+    background-color: #FFFFFF;
+    width:100%;
+    /* temporary height */
+    /* height: 100vh; */
+    border: none;
+    margin: 2px 0px;
+    border-radius: 40px;
+    padding: 50px 65px;
+    box-shadow: 1px 0px 20px 3px rgb(240, 240, 240);
+}
+
+/* product image start  */
+
+
+/* .uploadContainer{
+    height: 10rem;
+    width: 20rem;
+    max-width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+} */
+
+.uploadedImage{
+    height: 16rem;
+    overflow: hidden;
+    border-radius: 12px;
+    /* widt16: 10rem;; */
+    /* height: auto; */
+}
+
+#form-file-upload {
+    height: 16rem;
+    width: 28rem;
+    margin: auto;
+    max-width: 100%;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  #input-file-upload {
+    display: none;
+  }
+  
+  #label-file-upload {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-width: 2px;
+    border-radius: 1rem;
+    border-style: dashed;
+    border-color: #cbd5e1;
+    background-color: #f8fafc;
+
+  }
+  
+  #label-file-upload.drag-active {
+    background-color: #ffffff;
+  }
+  
+  .upload-button {
+    cursor: pointer;
+    padding: 0.25rem;
+    font-size: 1rem;
+    border: none;
+    font-family: 'Oswald', sans-serif;
+    background-color: transparent;
+  }
+  
+  .upload-button:hover {
+    text-decoration-line: underline;
+  }
+  
+  #drag-file-element {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+  }
+/* product image end */
+
+/* addProductTitle */
+.addProductTitle{
+    font-size: 28px;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+/* productImageWrapper */
+.productWrapper{
+    margin-top: 28px;
+    width: 100%;
+    /* pending */
+}
+/* productNameWrapper */
+.productNameWrapper{
+    margin-top: 28px;
+}
+/* productName */
+.productName{
+    font-size: 16px;
+    color: #191919;
+}
+.productInput{
+margin-top: 8px;
+border-radius: 8px;
+border: 1px solid lightgrey;
+/* border: none; */
+padding: 5px 20px;
+width: 100%;
+background-color: #F8F8F7;
+color: black;
+font-weight: 500;
+}
+.productInput:focus{
+margin-top: 8px;
+border-radius: 8px;
+/* border: 1px solid lightgrey !important; */
+padding: 5px 20px;
+width: 100%;
+}
+.productDescription{
+margin-top: 8px;
+border-radius: 8px;
+border: 1px solid lightgrey;
+/* border: none; */
+padding: 5px 20px;
+height: auto;
+width: 100%;
+background-color: #F8F8F7;
+color: black;
+font-weight: 500;
+}
+.productInput:focus{
+margin-top: 8px;
+border-radius: 8px;
+/* border: 1px solid lightgrey !important; */
+padding: 5px 20px;
+width: 100%;
+}
+
+/* prdouctCategoryAndPostionWrapper */
+.prdouctCategoryAndPostionWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.prdouctCategoryAndPostionWrapper .productWrapper:first-child{
+    margin-right: 20px;
+}
+/* prdouctPriceAndDiscontedPriceWrapper */
+.prdouctPriceAndDiscontedPriceWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.prdouctPriceAndDiscontedPriceWrapper .productWrapper:first-child{
+    margin-right: 20px;
+}
+/* productSaveAndAddButtonWrapper */
+.productSaveAndAddButtonWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.productSaveBtn{
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-weight: 600;
+    background-color: #c8161D;
+    color: white;
+}
+.productAddBtn{
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-weight: 600;
+    background-color: #FFCA40;
+    color: black;
+}
+
+/* custom copeden css for image upload start */
+/* custom copeden css for image upload end */
