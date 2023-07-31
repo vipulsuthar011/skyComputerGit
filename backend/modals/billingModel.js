@@ -6,6 +6,7 @@ const itemSchema = new Schema({
     quantity: Number,
     total: Number,
     purchasePrice: Number,
+    purchasePriceTotal: Number,
   });
 const formSchema = new Schema({
   address: String,

@@ -162,3 +162,13 @@ input[type=number] {
 .deleteIconWrapper:hover .deleteIcon {
     color: #ffffff;
 }
+
+/* profit section wrapper */
+.profitSectionWrapper{
+    margin-top: 20px;
+}
+
+.profitWrapper{
+    display: flex;
+    align-items: center;
+}

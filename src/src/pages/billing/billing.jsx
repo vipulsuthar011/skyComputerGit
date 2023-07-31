@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import styles from './billing.module.css'
 import 'react-select-search/style.css'
 // import Search from 'react-select-search';
-import Select, { components }  from 'react-select';
+import Select, { components } from 'react-select';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIndianRupeeSign, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -12,14 +12,10 @@ import { toast } from 'react-toastify';
 
 
 const Billing = () => {
-  let initialProductData = [{ name: "", price: "",pruchasePrice:"" }]
-  // Inside the Billing component
-
-  // const [productData, setProductData] = useState(initialProductData)
   const [grandTotal, setGrandTotal] = useState(0)
-
+  // const [purchaseTotal, setPurchaseTotal] = useState(0)
+  const [profitTotal, setProfitTotal] = useState(0)
   const componentRef = useRef();
-
   const [formData, setFormData] = useState(() => {
     // Check if form data exists in localStorage
     const storedFormData = localStorage.getItem('formData');
@@ -33,6 +29,15 @@ const Billing = () => {
       subject: '',
     };
   });
+  const [productData, setProductData] = useState(() => {
+    // Check if product data exists in localStorage
+    const storedProductData = localStorage.getItem('productData');
+    return storedProductData ? JSON.parse(storedProductData) : [{ name: "", price: 0, purchasePrice: 0 }];
+  });
+
+
+  const initialData = localStorage.getItem('tableData');
+  const [items, setItems] = useState(initialData ? JSON.parse(initialData) : []);
 
   useEffect(() => {
     // Save the form data to localStorage whenever it changes
@@ -51,16 +56,16 @@ const Billing = () => {
 
   // add quotation detail to quation section
   // add quotation
-  const addQuotation=()=>{
-    axios.post('http://localhost:8000/api/billing/addQuotation',documentData)
-    .then((response)=>{
-      console.log(response)
-      toast.success(response.data.message)
-    })
-    .catch((err)=>{
-      console.log(err)
-      toast.error(err.response.data.message)
-    })
+  const addQuotation = () => {
+    axios.post('http://localhost:8000/api/billing/addQuotation', documentData)
+      .then((response) => {
+        console.log(response)
+        toast.success(response.data.message)
+      })
+      .catch((err) => {
+        console.log(err)
+        toast.error(err.response.data.message)
+      })
   }
 
 
@@ -83,15 +88,7 @@ const Billing = () => {
     getProducts()
   }, []);
 
-  const [productData, setProductData] = useState(() => {
-    // Check if product data exists in localStorage
-    const storedProductData = localStorage.getItem('productData');
-    return storedProductData ? JSON.parse(storedProductData) : [{ name: "", price: "",purchasePrice:"" }];
-  });
 
-
-  const initialData = localStorage.getItem('tableData');
-  const [items, setItems] = useState(initialData ? JSON.parse(initialData) : []);
 
   useEffect(() => {
     localStorage.setItem('tableData', JSON.stringify(items));
@@ -99,6 +96,9 @@ const Billing = () => {
 
   const calculateTotalAmount = (item) => {
     return item.price * item.quantity;
+  };
+  const calculatePurchaseTotalAmount = (item) => {
+    return item.purchasePrice * item.quantity;
   };
 
   const handleProductChange = (selectedOption, index) => {
@@ -110,6 +110,8 @@ const Billing = () => {
     updatedItems[index].purchasePrice = selectedOption.purchasePrice;
     updatedItems[index].quantity = 1; // Default quantity is 1
     updatedItems[index].total = calculateTotalAmount(updatedItems[index]);
+    updatedItems[index].purchasePriceTotal =calculatePurchaseTotalAmount(updatedItems[index]) ;
+
     setItems(updatedItems);
   };
 
@@ -123,29 +125,64 @@ const Billing = () => {
     const grandTotal = updatedItems.reduce((total, item) => total + item.total, 0);
     setGrandTotal(grandTotal);
   };
+  const handlePurchasePriceChange = (event, index) => {
+    const updatedItems = [...items];
+    updatedItems[index].purchasePrice = event.target.value;
+    updatedItems[index].purchasePriceTotal =calculatePurchaseTotalAmount(updatedItems[index]) ;
+
+    // updatedItems[index].total = calculateTotalAmount(updatedItems[index]);
+    setItems(updatedItems);
+
+    // Calculate and set the grand total
+    const purchaseTotal = updatedItems.reduce((purchasePriceTotal, item) => parseInt(purchasePriceTotal) + parseInt(item.purchasePriceTotal), 0);
+    // setPurchaseTotal(grandTotal);
+    console.log(purchaseTotal)
+    const profitCalulate=grandTotal-purchaseTotal
+    setProfitTotal(profitCalulate)
+  };
 
   const handleQuantityChange = (event, index) => {
     const updatedItems = [...items];
     updatedItems[index].quantity = event.target.value;
     updatedItems[index].total = calculateTotalAmount(updatedItems[index]);
+    updatedItems[index].purchasePriceTotal =calculatePurchaseTotalAmount(updatedItems[index]) ;
+
     setItems(updatedItems);
 
     // Calculate and set the grand total
     const grandTotal = updatedItems.reduce((total, item) => total + item.total, 0);
     setGrandTotal(grandTotal);
+    
+     // Calculate and set the grand total
+    const purchaseTotal = updatedItems.reduce((purchasePriceTotal, item) => parseInt(purchasePriceTotal) + parseInt(item.purchasePriceTotal), 0);
+
+    // setPurchaseTotal(grandTotal);
+    // console.log(purchaseTotal)
+    const profitCalulate=grandTotal-purchaseTotal
+    setProfitTotal(profitCalulate)
   };
 
 
   useEffect(() => {
     // Calculate the initial grand total
     const initialGrandTotal = items.reduce((total, item) => total + item.total, 0);
+    const initialPurchaseTotal = items.reduce((purchasePriceTotal, item) => purchasePriceTotal + item.purchasePriceTotal, 0);
+    console.log("purchasepriceTotal",items)
+    console.log("intialGrandTotal",initialGrandTotal)
+    console.log("intialpruhcaseprice totlal",initialPurchaseTotal)
+    const intialProfitTotal=initialGrandTotal-initialPurchaseTotal
+
+    // setPurchaseTotal(initialPurchaseTotal);
     setGrandTotal(initialGrandTotal);
+    setProfitTotal(intialProfitTotal)
+    console.log(profitTotal)
+    // console.log(p)
   }, [items]);
 
 
 
   const handleAddRow = () => {
-    setItems([...items, { label: '', price: 0, quantity: 0, total: 0 }]);
+    setItems([...items, { label: '', price: 0,purchasePrice:0,purchaseTotal:0,purchasePriceTotal:0, quantity: 0, total: 0 }]);
   };
 
   const handleRemoveRow = (index) => {
@@ -159,7 +196,7 @@ const Billing = () => {
     return <components.IndicatorsContainer {...props} style={{ display: 'none' }} />;
   };
 
-  const handleBillReset=()=>{
+  const handleBillReset = () => {
     setItems([]);
     setFormData({
       billDate: new Date().toISOString().slice(0, 10),
@@ -173,7 +210,7 @@ const Billing = () => {
     setGrandTotal(0);
   }
 
-const documentData = { items, grandTotal, formData };
+  const documentData = { items, grandTotal, formData,profitTotal };
 
 
 
@@ -345,7 +382,7 @@ const documentData = { items, grandTotal, formData };
                     />
                   </td>
                   <td>
-                  <FontAwesomeIcon icon={faIndianRupeeSign} className='pr-1'/>
+                    <FontAwesomeIcon icon={faIndianRupeeSign} className='pr-1' />
                     <input
                       type="number"
                       value={item.price}
@@ -353,11 +390,11 @@ const documentData = { items, grandTotal, formData };
                     />
                   </td>
                   <td>
-                  <FontAwesomeIcon icon={faIndianRupeeSign} className='pr-1'/>
+                    <FontAwesomeIcon icon={faIndianRupeeSign} className='pr-1' />
                     <input
                       type="number"
                       value={item.purchasePrice}
-                      onChange={(event) => handlePriceChange(event, index)}
+                      onChange={(event) => handlePurchasePriceChange(event, index)}
                     />
                   </td>
                   <td>
@@ -368,34 +405,53 @@ const documentData = { items, grandTotal, formData };
                     />
                   </td>
                   {/* <td onChange={(event) => handleQuantityChange(event, index)}>{item.quantity ? (item.price * item.quantity).toFixed(2) : 0}</td> */}
-                                <td className='font-weight-bolder color-white text-dark  ' onChange={(event) => handleQuantityChange(event, index)}><FontAwesomeIcon icon={faIndianRupeeSign}/> {item.total} /-</td>
+                  <td className='font-weight-bolder color-white text-dark  ' onChange={(event) => handleQuantityChange(event, index)}><FontAwesomeIcon icon={faIndianRupeeSign} /> {item.total} /-</td>
                   <td>
                     <div className={styles.deleteIconWrapper} onClick={() => handleRemoveRow(index)}>
                       {/* <div className={styles.deleteIconWrapper} onClick={(e)=>handleDeletePopup(e,product)}> */}
                       <FontAwesomeIcon icon={faTrash} className={styles.deleteIcon} />
                     </div>
                   </td>
-
                 </tr>
+                
               ))}
+              {/* profit sell collum */}
+              {/* sell row */}
+              <tr>
+                    <td colSpan={4} rowSpan={2}></td>
+                    <td>Total Sell</td>
+                    <td colSpan={2}><FontAwesomeIcon icon={faIndianRupeeSign} /> {grandTotal} /-</td>
+              </tr>
+              {/* profit row */}
+              <tr>
+                    <td>Total Profit(Loss)</td>
+                    <td colSpan={2}><FontAwesomeIcon icon={faIndianRupeeSign} /> {profitTotal} /-</td>
+              </tr>
             </tbody>
           </table>
+
+          {/* profit section */}
+          
+          {/* profit section end */}
+
+
+          {/* action buttons */}
           <div className={styles.newRowBtnWrapper}>
-            <div onClick={()=>addQuotation()}>
+            <div onClick={() => addQuotation()}>
 
               <ReactToPrint
-                trigger={() => <button  className={styles.newRowBtn}  >Save and Print</button>}
+                trigger={() => <button className={styles.newRowBtn}  >Save and Print</button>}
                 content={() => componentRef.current}
-                />
-                </div>
+              />
+            </div>
             <div style={{ display: 'none' }}>
-              <DocumentPrint ref={componentRef} documentData={documentData}/>
+              <DocumentPrint ref={componentRef} documentData={documentData} />
             </div>
             <button onClick={addQuotation} className={styles.resetBill}>Save</button>
             <button onClick={handleBillReset} className={styles.resetBill}>Reset</button>
             <button onClick={handleAddRow} className={styles.newRowBtn}>Add Row</button>
           </div>
-                {/* Hidden iframe for printing */}
+          {/* Hidden iframe for printing */}
 
         </div>
 

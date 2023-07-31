@@ -16,13 +16,15 @@ import { toast } from 'react-toastify';
 const EditProduct = () => {
   const [viewType, setViewType] = useState('list')
   // const [productData, setproductData] = useState(second)
-  let initialProductData = [{ image: "", name: "", categoryName: "", price: "", offerPrice: "", shortDescription: "" }]
+  let initialProductData = [{ image: "", name: "", categoryName: "", price: "", purchasePrice: "", shortDescription: "" }]
   const [productData, setProductData] = useState(initialProductData)
-  const [formProductData, setFormProductData] = useState({ name: '', shortDescription: '', image: "" })
+  const [formProductData, setFormProductData] = useState({ name: '',price:"",purchasePrice:"", shortDescription: '', image: "" })
   const [categoryData, setCategoryData] = useState([{ name: "category1", _id: "1" }])
   const [editPopup, setEditPopup] = useState(false)
   const [deletePopup, setDeletePopup] = useState(false)
   const [deleteProductDetail, setdeleteProductDetail] = useState()
+
+  
 
   // get product
   const getProducts = () => {
@@ -175,6 +177,7 @@ const EditProduct = () => {
               <tr>
                 <th>item name</th>
                 <th>price</th>
+                <th>  purchase price</th>
                 <th>Short Description</th>
                 <th className={styles.actionButtons}>action</th>
               </tr>
@@ -183,6 +186,7 @@ const EditProduct = () => {
                   <tr className={styles.itemRow} key={index}>
                     <td className={styles.itemName}>{product.name}</td>
                     <td className={styles.offerPrice}>{product.price}</td>
+                    <td className={styles.offerPrice}>{product.purchasePrice}</td>
                     <td className={styles.offerPrice}>{product.shortDescription}</td>
                     <td className={styles.actionButtons}>
                       {/* <FontAwesomeIcon icon="fa-duotone fa-trash" /> */}
@@ -224,7 +228,7 @@ const EditProduct = () => {
                                 {/* button */}
                                 <div className={styles.delelteButtonWrapper}>
                                   <button className={styles.delelteCloseBtn} onClick={() => setDeletePopup(false)}>close</button>
-                                  <button className={styles.delelteSaveChangesBTN} ref={buttonRefEnter} onClick={() => deleteProduct(deleteProductDetail._id)}>Confirm Delete</button>
+                                  <button className={styles.delelteSaveChangesBTN}  ref={buttonRefEnter} onClick={() => deleteProduct(deleteProductDetail._id)}>Confirm Delete</button>
                                 </div>
                               </div>
                             </div>
@@ -246,7 +250,7 @@ const EditProduct = () => {
                     {/* edit item head */}
                     <div className={styles.editItemHeaderWrapper}>
                       <div className={styles.editItemHeadTitle}>Edit Product</div>
-                      <div className={styles.editCrossWrapper} onClick={() => setEditPopup(false)}><FontAwesomeIcon icon={faXmark} className={styles.editCross} /></div>
+                      <div className={styles.editCrossWrapper} ref={buttonRefEsc} onClick={() => setEditPopup(false)}><FontAwesomeIcon icon={faXmark} className={styles.editCross} /></div>
                     </div>
                     <hr />
 
@@ -268,6 +272,11 @@ const EditProduct = () => {
                           <div className={styles.productName}>Price</div>
                           <input type="number" className={styles.productInput} name="price" value={formProductData.price} onChange={(e) => handleOnEditProductChange(e)} />
                         </div>
+                        {/* product Price */}
+                        <div className={styles.productWrapper}>
+                          <div className={styles.productName}>Purchase Price</div>
+                          <input type="number" className={styles.productInput} name="purchasePrice" value={formProductData.purchasePrice} onChange={(e) => handleOnEditProductChange(e)} />
+                        </div>
                       
                         {/* product Discounted Price */}
                         <div className={styles.productWrapper}>
@@ -279,7 +288,7 @@ const EditProduct = () => {
                       {/* button */}
                       <div className={styles.editButtonWrapper}>
                         <button className={styles.editCloseBtn} onClick={() => setEditPopup(false)}>close</button>
-                        <button className={styles.EditSaveChangesBTN} onClick={updateProduct}>save changes</button>
+                        <button className={styles.EditSaveChangesBTN} ref={buttonRefEnter} onClick={updateProduct}>save changes</button>
                       </div>
                     </div>
                   </div>

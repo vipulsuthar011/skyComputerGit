@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+  import React, { useEffect, useState, useRef } from 'react'
 import styles from './updateQuotation.module.css'
 import 'react-select-search/style.css'
 // import Search from 'react-select-search';
@@ -21,11 +21,16 @@ const UpdateQuotaton = () => {
 
     
     console.log(quotationData.formData)
+
+
   let initialProductData = [{ name: "", price: "",pruchasePrice:"" }]
   // Inside the Billing component
 
   // const [productData, setProductData] = useState(initialProductData)
   const [grandTotal, setGrandTotal] = useState(0)
+  // const [purchaseTotal, setPurchaseTotal] = useState(0)
+  const [profitTotal, setProfitTotal] = useState(0)
+
 
   const componentRef = useRef();
 
@@ -113,6 +118,10 @@ const UpdateQuotaton = () => {
     getProducts()
   }, []);
 
+  const calculatePurchaseTotalAmount = (item) => {
+    return item.purchasePrice * item.quantity;
+  };
+
  // Use the quotationData.productData as the initial value
  const [productData, setProductData] = useState(() => {
   // Check if product data exists in quotationData.productData
@@ -147,6 +156,8 @@ useEffect(() => {
     updatedItems[index].purchasePrice = selectedOption.purchasePrice;
     updatedItems[index].quantity = 1; // Default quantity is 1
     updatedItems[index].total = calculateTotalAmount(updatedItems[index]);
+    updatedItems[index].purchasePriceTotal =calculatePurchaseTotalAmount(updatedItems[index]) ;
+
     setItems(updatedItems);
   };
 
@@ -161,28 +172,62 @@ useEffect(() => {
     setGrandTotal(grandTotal);
   };
 
+  const handlePurchasePriceChange = (event, index) => {
+    const updatedItems = [...items];
+    updatedItems[index].purchasePrice = event.target.value;
+    updatedItems[index].purchasePriceTotal =calculatePurchaseTotalAmount(updatedItems[index]) ;
+
+    // updatedItems[index].total = calculateTotalAmount(updatedItems[index]);
+    setItems(updatedItems);
+
+    // Calculate and set the grand total
+    const purchaseTotal = updatedItems.reduce((purchasePriceTotal, item) => parseInt(purchasePriceTotal) + parseInt(item.purchasePriceTotal), 0);
+    // setPurchaseTotal(grandTotal);
+    const profitCalulate=grandTotal-purchaseTotal
+    setProfitTotal(profitCalulate)
+  };
+
   const handleQuantityChange = (event, index) => {
     const updatedItems = [...items];
     updatedItems[index].quantity = event.target.value;
     updatedItems[index].total = calculateTotalAmount(updatedItems[index]);
+    updatedItems[index].purchasePriceTotal =calculatePurchaseTotalAmount(updatedItems[index]) ;
+
     setItems(updatedItems);
 
     // Calculate and set the grand total
     const grandTotal = updatedItems.reduce((total, item) => total + item.total, 0);
     setGrandTotal(grandTotal);
+
+    // Calculate and set the grand total
+    const purchaseTotal = updatedItems.reduce((purchasePriceTotal, item) => parseInt(purchasePriceTotal) + parseInt(item.purchasePriceTotal), 0);
+
+    // setPurchaseTotal(grandTotal);
+    const profitCalulate=grandTotal-purchaseTotal
+    setProfitTotal(profitCalulate)
+  
   };
 
 
   useEffect(() => {
     // Calculate the initial grand total
     const initialGrandTotal = items.reduce((total, item) => total + item.total, 0);
+    const initialPurchaseTotal = items.reduce((purchasePriceTotal, item) => parseInt(purchasePriceTotal) + parseInt(item.purchasePriceTotal), 0);
+    console.log("purchasepriceTotal",items)
+    console.log("intialGrandTotal",initialGrandTotal)
+    console.log("intialpruhcaseprice totlal",initialPurchaseTotal)
+    const intialProfitTotal=initialGrandTotal-initialPurchaseTotal
+
+    // setPurchaseTotal(initialPurchaseTotal);
     setGrandTotal(initialGrandTotal);
+    setProfitTotal(intialProfitTotal)
+    console.log(profitTotal)
+    // console.log(p)
   }, [items]);
 
 
-
   const handleAddRow = () => {
-    setItems([...items, { label: '', price: 0, quantity: 0, total: 0 }]);
+    setItems([...items, { label: '', price: 0,purchasePrice:0,purchaseTotal:0,purchasePriceTotal:0, quantity: 0, total: 0 }]);
   };
 
   const handleRemoveRow = (index) => {
@@ -394,7 +439,7 @@ const documentData = { items, grandTotal, formData };
                     <input
                       type="number"
                       value={item.purchasePrice}
-                      onChange={(event) => handlePriceChange(event, index)}
+                      onChange={(event) => handlePurchasePriceChange(event, index)}
                     />
                   </td>
                   <td>
@@ -415,6 +460,20 @@ const documentData = { items, grandTotal, formData };
 
                 </tr>
               ))}
+
+    {/* profit sell collum */}
+              {/* sell row */}
+              <tr>
+                    <td colSpan={4} rowSpan={2}></td>
+                    <td>Total Sell</td>
+                    <td colSpan={2}><FontAwesomeIcon icon={faIndianRupeeSign} /> {grandTotal} /-</td>
+              </tr>
+              {/* profit row */}
+              <tr>
+                    <td>Total Profit(Loss)</td>
+                    <td colSpan={2}><FontAwesomeIcon icon={faIndianRupeeSign} /> {profitTotal} /-</td>
+              </tr>
+
             </tbody>
           </table>
           <div className={styles.newRowBtnWrapper}>
