@@ -3,7 +3,7 @@ import mongoose, { Schema } from "mongoose";
 const productSchema = new Schema({
   name: {
     type: String,
-    required: [true, "Name field is required"],
+    // required: [true, "Name field is required"],
   },
   shortDescription: {
     type: String,

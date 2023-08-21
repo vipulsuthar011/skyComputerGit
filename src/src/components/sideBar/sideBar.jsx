@@ -68,17 +68,17 @@ const SideBar = ({ sideView, setSideView }) => {
      
 
       {/* Restaurant Profile */}
-      {/* <div className={`${sideView ? styles.restroProfileMax : styles.restroProfileMin}`}>
+      <div className={`${sideView ? styles.restroProfileMax : styles.restroProfileMin}`}>
             <div className={`${sideView?styles.restroProfileWrapperMax:styles.restroProfileWrapperMin}`}>
               <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80" alt="" className={styles.restroProfile} />
             </div>
-            <div className={`${sideView?styles.restroNameMax:styles.restroNameMin}`}>Restaurant Name</div>
-            <div className={`${sideView?styles.restroTagLineMax:styles.restroTagLineMin}`}>Tag Line</div>
+            <div className={`${sideView?styles.restroNameMax:styles.restroNameMin}`}>Sky computer</div>
+            <div className={`${sideView?styles.restroTagLineMax:styles.restroTagLineMin}`}>{" "}</div>
             <Link to="/admin/profile">
               <button className={`${sideView?styles.restroOpenProfileMax:styles.restroOpenProfileMin}`}>Open Profile</button>
             </Link>
 
-      </div> */}
+      </div>
 
       {/* copyright */}
       <div className={`${sideView ? styles.copyRightMax : styles.copyRightMin}`}>@2022 TechEngine</div>

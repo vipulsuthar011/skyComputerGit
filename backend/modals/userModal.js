@@ -9,6 +9,7 @@ const userSchema = new Schema({
     type: Schema.Types.Mixed,
     required: [true, "password is required"],
   },
+  // terms:String,
   // userType: { type: String, required: [true, "usertype is required"] },
 });
 

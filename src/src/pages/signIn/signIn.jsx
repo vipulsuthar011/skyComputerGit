@@ -27,7 +27,7 @@ const SignIn = () => {
                     toast(response.data.message)
                     sessionStorage.setItem("token", response.data.authToken)
                     sessionStorage.setItem("userType", "admin")
-                        navigation("/admin/addproduct", { replace: true })
+                        navigation("/admin/billing", { replace: true })
                         window.location.reload(true);
                 }
                 else{

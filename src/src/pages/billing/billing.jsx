@@ -210,7 +210,7 @@ const Billing = () => {
     setGrandTotal(0);
   }
 
-  const documentData = { items, grandTotal, formData,profitTotal };
+  const documentData = ({ items, grandTotal, formData,profitTotal });
 
 
 

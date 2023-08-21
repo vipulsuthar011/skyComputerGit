@@ -35,6 +35,7 @@ const QuotationHistory = () => {
     axios.get('http://localhost:8000/api/billing/getQuotation')
       .then((response) => {
         setQuotationInfo(response.data.data)
+        // quotationInfo.reverse()
         console.log("response===>", response.data.data)
       })
       .catch((err) => {
@@ -198,7 +199,8 @@ const QuotationHistory = () => {
     };
   }, []);
 
-
+  
+  // quotationInfo
 
 
   return (
@@ -218,7 +220,7 @@ const QuotationHistory = () => {
                 <th className={styles.actionButtons}>action</th>
               </tr>
               {
-                quotationInfo.map((quotation, index) => (
+                quotationInfo?.reverse().map((quotation, index) => (
                   // <Link to={{
                   //     pathname:`/admin/updateQuotation/${quotation._id}`,
                   //     state:{quotationData:"vipul"}

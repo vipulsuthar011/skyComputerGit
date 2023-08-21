@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from "./addItems.module.css"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
 
 const AddItems = ({ btnActive }) => {
-    const initalProductData = { name: "", shortDescription: "", categoryId: "", categoryName: "", price: "" }
+    const initalProductData = { name: "", shortDescription: "", categoryId: "", categoryName: "", price: "",purchasePrice:"" }
     const [formProductData, setFormProductData] = useState(initalProductData)
+    const navigation=useNavigate()
 
     // console.log(categoryData)
     // Api Calling
@@ -16,27 +17,34 @@ const AddItems = ({ btnActive }) => {
         console.log(formProductData)
     };
 
+    const validateForm = () => {
+        return (
+          formProductData.name.trim() !== "" &&
+          formProductData.price.trim() !== "" &&
+          formProductData.purchasePrice.trim() !== ""
+        );
+      };
+
     // add product
     const handleProductSubmit = async (e) => {
         e.preventDefault();
 
+        if (!validateForm()) {
+            toast.error('Please fill in all required fields.');
+            return;
+          }
+
         const _formproductdata = new FormData()
         _formproductdata.append("shortDescription", formProductData.shortDescription);
         _formproductdata.append("name", formProductData.name);
-        _formproductdata.append("categoryId", formProductData.categoryId);
-        _formproductdata.append("categoryName", formProductData.categoryName);
-        _formproductdata.append("price", parseInt(formProductData.price));
-        _formproductdata.append("purchasePrice", parseInt(formProductData.purchasePrice));
-        // _formproductdata.append("offerPrice", parseInt(formProductData.offerPrice));
-        //   debugger
+        _formproductdata.append("price", parseInt(formProductData.price || 0));
+        _formproductdata.append("purchasePrice", parseInt(formProductData.purchasePrice || 0));
 
         const formDataObject = {};
         for (const [key, value] of _formproductdata.entries()) {
             formDataObject[key] = value;
         }
-        console.log(formDataObject)
-        console.log("final product", formProductData)
-        console.log("final product", _formproductdata)
+    
 
         await axios
             .post("http://localhost:8000/api/product/AddProduct", formDataObject, {
@@ -46,21 +54,63 @@ const AddItems = ({ btnActive }) => {
             })
             .then((response) => {
                 console.log(response);
-                // console.log(_formproductdata)
                 setFormProductData(initalProductData)
+                navigation('/admin/quotationhistory/')
                 toast(response.data.message);
-                //   setIsloading(false)
-                //   setFormData(initalData)
             })
             .catch((error) => {
                 console.log(error);
                 toast(error.message)
-                //   setIsloading(false)
-                //   setError(error.response.data.error);
                 console.log(error.response.data.error);
             });
-        // }
     };
+
+
+
+    const handleProductSubmitAndAdd = async (e) => {
+        e.preventDefault();
+
+        if (!validateForm()) {
+            toast.error('Please fill in all required fields.');
+            console.log("no ddata available");
+            return;
+          }
+          else{
+
+          
+
+        const _formproductdata = new FormData()
+        _formproductdata.append("shortDescription", formProductData.shortDescription);
+        _formproductdata.append("name", formProductData.name);
+        _formproductdata.append("price", parseInt(formProductData.price || 0));
+        _formproductdata.append("purchasePrice", parseInt(formProductData.purchasePrice || 0));
+
+        const formDataObject = {};
+        for (const [key, value] of _formproductdata.entries()) {
+            formDataObject[key] = value;
+        }
+    
+
+        await axios
+            .post("http://localhost:8000/api/product/AddProduct", formDataObject, {
+                headers: {
+                    authorization: `Bearer ${sessionStorage.token}`,
+                },
+            })
+            .then((response) => {
+                console.log(response);
+                setFormProductData(initalProductData)
+                toast(response.data.message);
+            })
+            .catch((error) => {
+                console.log(error);
+                toast(error.message)
+                console.log(error.response.data.error);
+            });
+          }
+
+    };
+
 
 
 
@@ -110,7 +160,7 @@ const AddItems = ({ btnActive }) => {
                         </div>
                         {/* product Save and Add button wrapper */}
                         <div className={styles.productAddBtnWrapper}>
-                            <button className={styles.productAddBtn} onClick={handleProductSubmit}>Save & Add</button>
+                            <button className={styles.productAddBtn} onClick={handleProductSubmitAndAdd}>Save & Add</button>
                         </div>
                     </div>
 

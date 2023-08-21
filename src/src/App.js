@@ -9,6 +9,7 @@ import SideHeaderWrapper from "./components/side/sideHeaderWrapper";
 import SignIn from "./pages/signIn/signIn";
 import Home from "./components/home/home";
 import { ToastContainer, toast } from 'react-toastify';
+import { AuthenticatedRoute, UnauthenticatedRoute } from "./authenticatedRoutes";
 
 
 function App() {
@@ -17,11 +18,14 @@ function App() {
 
       <BrowserRouter>
       <ToastContainer/>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<SignIn />} />
-          <Route path="/admin/*" element={<SideHeaderWrapper />} />
-        </Routes>
+      <Routes>
+      <Route path="/" element={<UnauthenticatedRoute element={<SignIn />} />} />
+        <Route path="/login" element={<UnauthenticatedRoute element={<SignIn />} />} />
+        <Route
+          path="/admin/*"
+          element={<AuthenticatedRoute element={<SideHeaderWrapper />} />}
+        />
+      </Routes>
       </BrowserRouter>
     </>
   );

@@ -1,10 +1,56 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './profile.module.css'
 import { faIndianRupeeSign, faLock, faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const Profile = () => {
+    const [userInfo, setUserInfo] = useState({ username: "", password: "", terms: "" })
+    const [companyDetail, setCompanyDetail] = useState("")
+
+
+
+    useEffect(() => {
+        getUserInfo();
+    }, [])
+
+    const getUserInfo = async () => {
+        await axios.get('http://localhost:8000/api/companyDetail/getCompanyDetail'
+            , {
+                'headers': {
+                    'authorization': `Bearer ${sessionStorage.token}`,
+                },
+            })
+            .then((response) => {
+                console.log(response.data.data[0].term)
+                setCompanyDetail(response.data.data[0].term)
+                toast(response.data.message)
+            })
+    }
+
+
+    const handleSave = () => {
+        // Update the terms and conditions on the backend
+
+        axios.post('http://localhost:8000/api/companyDetail/updateCompanyDetail', { term:companyDetail })
+            .then(response => {
+                toast.success(response.data.message);
+                // getUserInfo()
+                console.log(companyDetail)
+                // setCompanyDetail(response.data.data[0])
+                // console.log(response.data.data)
+                // setIsEditing(false);
+            })
+            .catch(error => {
+                console.error('Error updating terms and conditions:', error);
+            });
+    };
+
+    // const [termsAndConditions, setTermsAndConditions] = useState('');
+    const [isEditing, setIsEditing] = useState(false);
+
     return (
         <div className={styles.profileMainWrapper}>
             {/* heading title */}
@@ -20,15 +66,14 @@ const Profile = () => {
                     </div>
                     {/* compnay name and landmark */}
                     <div>
-                        <div className={styles.companyName}>Kalz Brgr</div>
-                        <div className={styles.landmark}>Landmark</div>
+                        <div className={styles.companyName}>Sky Computer</div>
+                        <div className={styles.landmark}>Sec-3</div>
                     </div>
 
                     {/* profit  and Revenue*/}
                     <div className={styles.orderDetails}>
                         {/* profit */}
                         <div className={styles.profileProfitWrapper}>
-                            {/* 400  */}
                             <div className={styles.orderPrice}><FontAwesomeIcon icon={faIndianRupeeSign} /> <div>44</div></div>
                             <div className={styles.orderText}>Earned</div>
                         </div>
@@ -42,30 +87,30 @@ const Profile = () => {
 
                     {/* button */}
                     <div className={styles.profileButtons}>
-                        <Link to="/">
-                            <div className={styles.profileLinkBtnWrapper}>
-                                {/* button image */}
-                                    <FontAwesomeIcon icon={faUser} className={styles.LinkIcon} />
-                                {/* button text */}
-                                <div>Company Information</div>
-                            </div>
-                        </Link>
-                        <Link to="/">
-                            <div className={styles.profileLinkBtnWrapper}>
-                                {/* button image */}
-                                    <FontAwesomeIcon icon={faLock} className={styles.LinkIcon} />
-                                {/* button text */}
-                                <div>Login & Password</div>
-                            </div>
-                        </Link>
-                        <Link to="/">
-                            <div className={styles.profileLinkBtnWrapper}>
-                                {/* button image */}
-                                    <FontAwesomeIcon icon={faRightFromBracket} className={styles.LinkIcon} />
-                                {/* button text */}
-                                <div>Logout</div>
-                            </div>
-                        </Link>
+                        {/* <Link to="/"> */}
+                        <div className={styles.profileLinkBtnWrapper}>
+                            {/* button image */}
+                            <FontAwesomeIcon icon={faUser} className={styles.LinkIcon} />
+                            {/* button text */}
+                            <div>Company Information</div>
+                        </div>
+                        {/* </Link> */}
+                        {/* <Link to="/"> */}
+                        <div className={styles.profileLinkBtnWrapper}>
+                            {/* button image */}
+                            <FontAwesomeIcon icon={faLock} className={styles.LinkIcon} />
+                            {/* button text */}
+                            <div>Login & Password</div>
+                        </div>
+                        {/* </Link> */}
+                        {/* <Link to="/"> */}
+                        <div className={styles.profileLinkBtnWrapper}>
+                            {/* button image */}
+                            <FontAwesomeIcon icon={faRightFromBracket} className={styles.LinkIcon} />
+                            {/* button text */}
+                            <div>Logout</div>
+                        </div>
+                        {/* </Link> */}
 
                     </div>
 
@@ -74,6 +119,29 @@ const Profile = () => {
 
                 {/* Right` Wrapper */}
                 <div className={styles.rightWrapper}>
+
+
+                <div className={styles.profileContainer}>
+            <h2>Profile Section</h2>
+            <div>
+                <h3>Terms and Conditions:</h3>
+                    <textarea
+                        className={styles.editTextarea}
+                        value={companyDetail}
+                        onChange={e => setCompanyDetail(e.target.value)}
+                    />
+                    {/* {console.log(companyDetail.term)} */}
+            </div>
+            <div className={styles.editSection}>
+            
+                    <>
+                        <button className={styles.saveButton} onClick={handleSave}>Save</button>
+                        {/* <button className={styles.cancelButton} onClick={() => setIsEditing(false)}>Cancel</button> */}
+                    </>
+            </div>
+        </div>
+
+
 
                 </div>
             </div>

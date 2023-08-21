@@ -28,7 +28,7 @@ const SideHeaderWrapper = () => {
             {/* <Route path='/editcategory/' element={<EditCategory/>}/> */}
             <Route path='/billing/' element={<Billing/>}/>
             <Route path='/updateQuotation/:quotationId' element={<UpdateQuotaton/>}/>
-            <Route path='/profile/' element={<CommingSoon/>}/>
+            <Route path='/profile/' element={<Profile/>}/>
             <Route path='/quotationhistory/' element={<QuotationHistory/>}/>
             <Route path='/notification/' element={<CommingSoon/>}/>
             <Route path='/support/' element={<CommingSoon/>}/>

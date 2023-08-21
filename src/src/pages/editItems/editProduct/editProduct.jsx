@@ -45,9 +45,23 @@ const EditProduct = () => {
     getProducts()
   }, []);
 
+  const validateForm = () => {
+    return (
+      formProductData.name.trim() !== "" &&
+      formProductData.price.trim() !== "" &&
+      formProductData.purchasePrice.trim() !== ""
+    );
+  };
+  
   // update product
   const updateProduct = (e) => {
     e.preventDefault()
+
+    if (!validateForm()) {
+      toast.error('Please fill in all required fields.');
+      console.log("no data available");
+      return;
+    }
 
     console.log("update Product Form data is ", formProductData)
     axios

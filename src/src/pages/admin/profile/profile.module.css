@@ -119,3 +119,45 @@
 .rightWrapper {
     width: 70%;
 }
+
+
+/* Profile.module.css */
+.profileContainer {
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    margin: 20px;
+}
+
+.termsList {
+    list-style-type: decimal;
+}
+
+.editSection {
+    margin-top: 20px;
+}
+
+.editTextarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+.saveButton {
+    background-color: #ffd700; /* Yellow background color */
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.saveButton:hover {
+    background-color: #ffea00; /* Lighter yellow on hover */
+}

@@ -8,6 +8,7 @@ userRoutes.post('/signup',signup)
 
 userRoutes.post('/login',login)
 userRoutes.get('/getProfile', verifyJwtToken, getProfile)
+// userRoutes.get('/getProfile', verifyJwtToken, get)
 userRoutes.post('/updateProfile', verifyJwtToken, updateProfile)
 userRoutes.post('/changePassword', verifyJwtToken, changePassword)
 

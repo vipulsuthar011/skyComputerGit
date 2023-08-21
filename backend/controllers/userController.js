@@ -27,13 +27,13 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
   const { phoneNumber, password } = req.body;
+  console.log(phoneNumber,password)
   try {
     const userExist = await userModal.findOne({
       $and: [{ phoneNumber, password }],
     });
-    console.log(userExist)
-    console.log("this is ser", userExist);
     if (userExist) {
+      console.log("user login successfullly with ",phoneNumber, password)
       const authToken = generateToken(userExist._id);
       res.status(200).json({
         message: "User Logged in successfully",
@@ -42,7 +42,7 @@ export const login = async (req, res) => {
         success: true,
       });
     } else {
-      console.log("dfdsf")
+      console.log("invalid phone number and password")
       res.status(200).json({
         message: "Invalid phone number or password",
         success: false,
@@ -62,8 +62,8 @@ export const getProfile = async (req, res) => {
   // console.log(req)
   console.log("hlfsdf",req.user)
   try {
-    const user = await userModal.findOne({ _id: req.user });
-    console.log("this is suer",user)
+    const user = await userModal.findOne({ _id: req.user.userId });
+    // console.log("this is suer",user)
     if (user) {
       res.status(200).json({
         message: "User Profile fetched successfully",
