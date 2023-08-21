@@ -40,13 +40,14 @@
 .signUpRightWrapper {
   /* background-color: #fff3eb; */
   width: 40%;
+  margin: auto;
 }
 
 .signUpLeftFromWrapper {
   background-color: #fff3eb;
   padding: 30px;
   border-radius: 8px;
-  margin-left: -160px;
+  /* margin-left: -160px; */
   width: 100%;
 }
 

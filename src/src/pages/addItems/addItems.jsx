@@ -123,7 +123,7 @@ const AddItems = ({ btnActive }) => {
             <div className={styles.rightSideWrapper}>
                 <div className={styles.addItemsWrapper}>
                     {/* Add item title */}
-                    <div className={styles.addProductTitle}>ADD PRODUCT</div>
+                    <div className={styles.addProductTitle}  >ADD PRODUCT</div>
 
                     {/* product name */}
                     <div className={styles.productWrapper}>

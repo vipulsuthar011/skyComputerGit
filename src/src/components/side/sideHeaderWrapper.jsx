@@ -4,9 +4,7 @@ import SideBar from '../sideBar/sideBar'
 import styles from './SideHeaderWrapper.module.css'
 import { BrowserRouter, Route, Router, Routes, useNavigate } from "react-router-dom";
 import AddItems from '../../pages/addItems/addItems';
-import SignIn from '../../pages/signIn/signIn';
 import EditProduct from '../../pages/editItems/editProduct/editProduct';
-import EditCategory from '../../pages/editItems/editCategory/editCategory';
 import Profile from '../../pages/admin/profile/profile';
 import Billing from '../../pages/billing/billing';
 import CommingSoon from '../../pages/commingSoon/commingSoon';
@@ -21,12 +19,9 @@ const SideHeaderWrapper = () => {
         <SideBar sideView={sideView} setSideView={setSideView}/>
        <div className={`${sideView?styles.componentWrapperMax:styles.componentWrapperMin}`}>
           <Routes>
-            {/* <Route path='/login' element={<SignIn/>}/> */}
             <Route path='/addproduct/' element={<AddItems btnActive="addproduct"/>}/>
-            {/* <Route path='/addcategory/' element={<AddItems btnActive="addcategory"/>}/> */}
             <Route path='/editproduct/' element={<EditProduct/>}/>
-            {/* <Route path='/editcategory/' element={<EditCategory/>}/> */}
-            <Route path='/billing/' element={<Billing/>}/>
+            <Route path='/billing/' element={<Billing sideView={sideView} setSideView={setSideView}/>}/>
             <Route path='/updateQuotation/:quotationId' element={<UpdateQuotaton/>}/>
             <Route path='/profile/' element={<Profile/>}/>
             <Route path='/quotationhistory/' element={<QuotationHistory/>}/>

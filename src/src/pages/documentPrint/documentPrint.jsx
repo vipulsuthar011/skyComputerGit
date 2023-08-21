@@ -3,11 +3,33 @@ import React, { useEffect, useState } from 'react';
 import styles from './documentPrint.module.css'
 import { faIndianRupeeSign } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 
 export const DocumentPrint = React.forwardRef((props, ref) => {
     // console.log(props.documentData.formData);
+    const [termAndCondition, setTermAndCondition] = useState([])
     const BillDetail=props.documentData
     // console.log("billDEtail=======>",BillDetail)
+
+    useEffect(() => {
+      getCompanyDetail()
+    }, [])
+    
+
+    const getCompanyDetail = async () => {
+        await axios.get('http://localhost:8000/api/companyDetail/getCompanyDetail'
+            , {
+                'headers': {
+                    'authorization': `Bearer ${sessionStorage.token}`,
+                },
+            })
+            .then((response) => {
+                console.log(response.data.data[0].term)
+                setTermAndCondition(response.data.data[0].term);
+                // toast(response.data.message)
+            })
+    }
+
     
     return (
         <div ref={ref}>
@@ -81,12 +103,16 @@ export const DocumentPrint = React.forwardRef((props, ref) => {
                     <div className={styles.termAndCondition}>
                         <div className={styles.termNote}>Note:-</div>
                         <ol className={styles.termOl}>
-                            <li>This quotation is valid for 15 days only, and prices may change after that period.</li>
+
+                            {termAndCondition?.map((term,index)=>(
+                                <li key={index}>{term}</li>
+                            ))}
+                            {/* <li>This quotation is valid for 15 days only, and prices may change after that period.</li>
                             <li>All our products come with a 2-year standard company warranty</li>
                             <li>The above prices include a 6-month Annual Maintenance Contract (AMC).</li>
                             <li>The customer will provide the power facility.</li>
                             <li>Payment terms: 60% advance, and the remaining amount after installation.</li>
-                            <li>All prices are GST inclusive, except for installation charges.</li>
+                            <li>All prices are GST inclusive, except for installation charges.</li> */}
                         </ol>
                     </div>
 

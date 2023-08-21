@@ -4,6 +4,7 @@ import styles from './sideBar.module.css'
 import { faBottleWater, faBowlFood, faBurger, faCartPlus, faEnvelope, faFile, faFileInvoice, faFilePen, faHeadset, faMugSaucer, faPizzaSlice } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link,NavLink, useLocation } from 'react-router-dom'
+
 // import Header from '../header/header'
 // import Header2 from '../header2/header2'
 
@@ -21,21 +22,21 @@ const SideBar = ({ sideView, setSideView }) => {
 
         {/* Billing */}
         <Link to="/admin/billing/">
-          <div className={` ${location.pathname === '/admin/billing/' && styles.active} ${sideView ? styles.elementWrapperMax : styles.elementWrapperMin}`}>
+          <div className={` ${location.pathname === '/admin/billing/' && "active"} ${sideView ? styles.elementWrapperMax : styles.elementWrapperMin}`}>
           <FontAwesomeIcon icon={faFileInvoice} className={` ml-2 ${styles.elementLogo}`} />
             <div className={`${sideView ? styles.elementNameMax : styles.elementNameMin}`}>Quotation</div>
           </div>
         </Link>
         {/* Quotation History */}
         <Link to="/admin/quotationhistory/">
-          <div className={` ${location.pathname === '/admin/quotationhistory/' && styles.active} ${sideView ? styles.elementWrapperMax : styles.elementWrapperMin}`}>
+          <div className={` ${location.pathname === '/admin/quotationhistory/' && "active"} ${sideView ? styles.elementWrapperMax : styles.elementWrapperMin}`}>
           <FontAwesomeIcon icon={faFile} className={` ml-2 ${styles.elementLogo}`} />
             <div className={`${sideView ? styles.elementNameMax : styles.elementNameMin}`}>Quotation History</div>
           </div>
         </Link>
         {/* ADD product`` */}
         <Link to="/admin/addproduct/" >
-          <div className={`${location.pathname === '/admin/addproduct/' && styles.active} ${sideView ? styles.elementWrapperMax : styles.elementWrapperMin}`}>
+          <div className={`${location.pathname === '/admin/addproduct/' && "active"} ${sideView ? styles.elementWrapperMax : styles.elementWrapperMin}`}>
           <FontAwesomeIcon icon={faCartPlus} className={styles.elementLogo} />
             <div className={`${sideView ? styles.elementNameMax : styles.elementNameMin}`}>Add Product</div>
           </div>
@@ -43,7 +44,7 @@ const SideBar = ({ sideView, setSideView }) => {
 
         {/* Edit Product */}
         <Link to="/admin/editproduct/">
-          <div className={` ${location.pathname === '/admin/editproduct/' && styles.active} ${sideView ? styles.elementWrapperMax : styles.elementWrapperMin}`}>
+          <div className={` ${location.pathname === '/admin/editproduct/' && "active"} ${sideView ? styles.elementWrapperMax : styles.elementWrapperMin}`}>
           <FontAwesomeIcon icon={faFilePen} className={styles.elementLogo} />
             <div className={`${sideView ? styles.elementNameMax : styles.elementNameMin}`}>Edit Product</div>
           </div>
@@ -53,14 +54,14 @@ const SideBar = ({ sideView, setSideView }) => {
         <div className={`${sideView ? styles.otherTitleMax : styles.otherTitleMin}`}>Other</div>
         {/* Notification */}
         <Link to="/admin/notification/">
-          <div className={` ${location.pathname === '/admin/notification/' && styles.active} ${sideView ? styles.elementWrapperMax : styles.elementWrapperMin}`}>
+          <div className={` ${location.pathname === '/admin/notification/' && "active"} ${sideView ? styles.elementWrapperMax : styles.elementWrapperMin}`}>
             <FontAwesomeIcon icon={faEnvelope} className={styles.elementLogo} />
             <div className={`${sideView ? styles.elementNameMax : styles.elementNameMin}`}>Notification</div>
           </div>
         </Link>
         {/* Support */}
         <Link to="/admin/support/">
-          <div className={` ${location.pathname === '/admin/support/' && styles.active} ${sideView ? styles.elementWrapperMax : styles.elementWrapperMin}`}>
+          <div className={` ${location.pathname === '/admin/support/' && "active"} ${sideView ? styles.elementWrapperMax : styles.elementWrapperMin}`}>
             <FontAwesomeIcon icon={faHeadset} className={styles.elementLogo} />
             <div className={`${sideView ? styles.elementNameMax : styles.elementNameMin}`}>Support</div>
           </div>

@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const companyDetailSchema = new Schema({
-    term:String,
+    term:Array,
 });
 
 export default mongoose.model("companyDetail", companyDetailSchema);

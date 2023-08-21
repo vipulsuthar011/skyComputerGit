@@ -43,11 +43,11 @@ const SignIn = () => {
     }
     return (
         <div className={styles.signUpWrapper}>
-            <div className={styles.signUpSubWrapper}>
-                <div className={`${styles.mainWrapper}`}>
-                    <div className={`", ${styles.singnUpLeftWrapper}`}>
+            {/* <div className={styles.signUpSubWrapper}> */}
+                {/* <div className={`${styles.mainWrapper}`}> */}
+                    {/* <div className={`", ${styles.singnUpLeftWrapper}`}>
                         <img src="./images/signUp/signupbanner.jpg" alt="" />
-                    </div>
+                    </div> */}
                     <div className={clsx("", styles.signUpRightWrapper)}>
                         <div className={styles.signUpLeftFromWrapper}>
                             <h4 className='text-center mb-3 font-weight-bold'>Sign In</h4>
@@ -61,8 +61,8 @@ const SignIn = () => {
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
+                {/* </div> */}
+            {/* </div> */}
         </div>
     )
 }

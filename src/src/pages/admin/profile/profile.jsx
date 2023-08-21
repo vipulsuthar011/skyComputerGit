@@ -7,9 +7,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 
 const Profile = () => {
-    const [userInfo, setUserInfo] = useState({ username: "", password: "", terms: "" })
-    const [companyDetail, setCompanyDetail] = useState("")
-
+    const [updatedCompanyDetail, setUpdatedCompanyDetail] = useState([]);
 
 
     useEffect(() => {
@@ -25,31 +23,36 @@ const Profile = () => {
             })
             .then((response) => {
                 console.log(response.data.data[0].term)
-                setCompanyDetail(response.data.data[0].term)
+                setUpdatedCompanyDetail(response.data.data[0].term);
                 toast(response.data.message)
             })
     }
 
 
     const handleSave = () => {
-        // Update the terms and conditions on the backend
 
-        axios.post('http://localhost:8000/api/companyDetail/updateCompanyDetail', { term:companyDetail })
+        const finalTerm = updatedCompanyDetail.filter(term => term.trim() !== '');
+        console.log(finalTerm);
+        axios.post('http://localhost:8000/api/companyDetail/updateCompanyDetail', { term: finalTerm })
             .then(response => {
                 toast.success(response.data.message);
-                // getUserInfo()
-                console.log(companyDetail)
-                // setCompanyDetail(response.data.data[0])
-                // console.log(response.data.data)
-                // setIsEditing(false);
             })
             .catch(error => {
                 console.error('Error updating terms and conditions:', error);
             });
     };
 
-    // const [termsAndConditions, setTermsAndConditions] = useState('');
-    const [isEditing, setIsEditing] = useState(false);
+
+    const handleTermChange = (index, value) => {
+        const updatedTerms = [...updatedCompanyDetail];
+        updatedTerms[index] = value;
+        setUpdatedCompanyDetail(updatedTerms);
+    };
+
+    const handleAddTerm = () => {
+        const updatedTerms = [...updatedCompanyDetail, ''];
+        setUpdatedCompanyDetail(updatedTerms);
+    };
 
     return (
         <div className={styles.profileMainWrapper}>
@@ -121,25 +124,43 @@ const Profile = () => {
                 <div className={styles.rightWrapper}>
 
 
-                <div className={styles.profileContainer}>
-            <h2>Profile Section</h2>
-            <div>
-                <h3>Terms and Conditions:</h3>
-                    <textarea
-                        className={styles.editTextarea}
-                        value={companyDetail}
-                        onChange={e => setCompanyDetail(e.target.value)}
-                    />
-                    {/* {console.log(companyDetail.term)} */}
-            </div>
-            <div className={styles.editSection}>
-            
-                    <>
-                        <button className={styles.saveButton} onClick={handleSave}>Save</button>
-                        {/* <button className={styles.cancelButton} onClick={() => setIsEditing(false)}>Cancel</button> */}
-                    </>
-            </div>
-        </div>
+
+
+
+
+
+
+                    <div className={styles.profileContainer}>
+                        {/* <h2>Profile Section</h2> */}
+                        <div>
+                            <h3>Terms and Conditions:</h3>
+                            {/* {console.log(updatedCompanyDetail)} */}
+                            <ol className={styles.termInputWrapper}>
+
+                                {updatedCompanyDetail.map((term, index) => (
+                                    <li>                    <input
+                                        key={index}
+                                        type="text"
+                                        className={styles.termInput}
+                                        value={term}
+                                        onChange={e => handleTermChange(index, e.target.value)}
+                                    />
+                                    </li>
+                                ))}
+                            </ol>
+                        </div>
+                        <div className={styles.editSection}>
+                            <button className={styles.saveButton} onClick={handleSave}>Save</button>
+                            <button className={styles.addButton} onClick={handleAddTerm}>Add Term</button>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
 
 
 

@@ -207,7 +207,7 @@ const QuotationHistory = () => {
     <div className={styles.editProductWrapper}>
       <div className={styles.editPrdouctHeaderSection}>
         <div className={styles.editItemHeading}>Quotation History</div>
-        <Link to="/admin/billing"><div className={styles.HeadAddItemBtn}>ADD Quotation</div></Link>
+        <Link to="/admin/billing/"><div className={styles.HeadAddItemBtn}>ADD Quotation</div></Link>
       </div>
       {
         viewType === "list" ?

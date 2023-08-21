@@ -51,6 +51,11 @@ height: 200px;
 }
 
 
+.active{
+  background-color:#FFCA40 ;
+}
+
+
 
 .btn:focus {
   outline: none !important;

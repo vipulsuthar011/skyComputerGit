@@ -135,6 +135,9 @@
 
 .editSection {
     margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .editTextarea {
@@ -156,8 +159,35 @@
     cursor: pointer;
     font-size: 16px;
     margin-top: 10px;
+    transition: .3s all ease-in-out;
+
 }
 
 .saveButton:hover {
     background-color: #ffea00; /* Lighter yellow on hover */
+}
+.addButton {
+    background-color: #C8161D; /* Yellow background color */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: .3s all ease-in-out;
+}
+
+.addButton:hover {
+    background-color: #ffa4b4; /* Lighter yellow on hover */
+    color: #333;
+}
+.termInput{
+    width: 100%;
+    border: none;
+    padding: 8px 10px;
+    /* border-radius: 20px; */
+}
+.termInputWrapper{
+    border-radius: 12px;
 }

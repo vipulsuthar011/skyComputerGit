@@ -52,7 +52,7 @@ const EditProduct = () => {
       formProductData.purchasePrice.trim() !== ""
     );
   };
-  
+
   // update product
   const updateProduct = (e) => {
     e.preventDefault()
@@ -182,7 +182,8 @@ const EditProduct = () => {
     <div className={styles.editProductWrapper}>
       <div className={styles.editPrdouctHeaderSection}>
         <div className={styles.editItemHeading}>Items</div>
-        <Link to="/admin/addproduct"><div className={styles.HeadAddItemBtn}>ADD Product</div></Link>
+        <Link to="/admin/addproduct/"><div className={styles.HeadAddItemBtn}>ADD Product</div></Link>
+        
       </div>
       {
         viewType === "list" ?

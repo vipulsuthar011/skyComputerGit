@@ -11,7 +11,9 @@ import ReactToPrint, { useReactToPrint } from 'react-to-print';
 import { toast } from 'react-toastify';
 
 
-const Billing = () => {
+const Billing = ({sideView,setSideView}) => {
+  // setSideView(false)
+  
   const [grandTotal, setGrandTotal] = useState(0)
   // const [purchaseTotal, setPurchaseTotal] = useState(0)
   const [profitTotal, setProfitTotal] = useState(0)
