@@ -22,7 +22,6 @@ const Profile = () => {
                 },
             })
             .then((response) => {
-                console.log(response.data.data[0].term)
                 setUpdatedCompanyDetail(response.data.data[0].term);
                 toast(response.data.message)
             })
@@ -32,7 +31,6 @@ const Profile = () => {
     const handleSave = () => {
 
         const finalTerm = updatedCompanyDetail.filter(term => term.trim() !== '');
-        console.log(finalTerm);
         axios.post('http://localhost:8000/api/companyDetail/updateCompanyDetail', { term: finalTerm })
             .then(response => {
                 toast.success(response.data.message);
@@ -134,7 +132,6 @@ const Profile = () => {
                         {/* <h2>Profile Section</h2> */}
                         <div>
                             <h3>Terms and Conditions:</h3>
-                            {/* {console.log(updatedCompanyDetail)} */}
                             <ol className={styles.termInputWrapper}>
 
                                 {updatedCompanyDetail.map((term, index) => (

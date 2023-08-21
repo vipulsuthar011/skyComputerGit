@@ -2,13 +2,10 @@ import billingModel from "../modals/billingModel.js"
 
 export const addQuotation = async (req, res) => {
         // const { items, formData } = req.body
-        // console.log(req.body)
 
         try {
                 // Check if a quotation with the same formData and items already exists
-                // console.log("anything")
                 // const existingQuotation = await billingModel.findOne({formData})
-                // // console.log("existingQuotation",existingQuotation)
                 // if (existingQuotation) {
                 //         // Quotation with the same formData and items already exists
                 //         res.status(200).json({
@@ -19,7 +16,6 @@ export const addQuotation = async (req, res) => {
 
                         const billData = new billingModel(req.body)
                         billData.save();
-                        // console.log(billData)
                         res.json({
                                 // data: billData,
                                 // data1: req.body,
@@ -57,9 +53,7 @@ export const getQuotation = async (req, res) => {
 export const deleteQuotation = async (req, res) => {
         try {
                 const { quotationId } = req.params;
-                console.log(quotationId)
                 const billData = await billingModel.findOneAndDelete({ _id: quotationId });
-                console.log(billData)
                 res.status(200).json({
                         message: "Product Deleted Successfully",
                         success: true,

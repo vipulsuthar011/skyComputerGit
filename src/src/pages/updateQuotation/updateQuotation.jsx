@@ -14,13 +14,10 @@ import { useLocation, useParams } from 'react-router-dom';
 
 const UpdateQuotaton = () => {
     const {quotationId}=useParams();
-    console.log("hello",quotationId)
     const location = useLocation();
-    console.log(location)
     const { quotationData } = location.state; 
 
     
-    console.log(quotationData.formData)
 
 
   let initialProductData = [{ name: "", price: "",pruchasePrice:"" }]
@@ -85,14 +82,11 @@ const UpdateQuotaton = () => {
 
   // update quotation
   const updateQuotation=()=>{
-    // console.log(documentData);
     axios.post(`http://localhost:8000/api/billing/updateQuotation/${quotationData._id}`,documentData)
     .then((response)=>{
-      console.log(response)
       toast.success(response.data.message)
     })
     .catch((err)=>{
-      console.log(err)
       toast.error(err.response.data.message)
       // toast("error")
     })
@@ -105,13 +99,11 @@ const UpdateQuotaton = () => {
       .get(`http://localhost:8000/api/product/getProducts`)
       .then((response) => {
         setProductData(response.data.data);
-        // console.log("get product get api data for my products page:-", response.data.data);
         // setIsLoading(false);
       })
       .catch((err) => {
         // setIsLoading(false);
         toast.error("Some error occured ! Please try after some time");
-        console.log("error===>", err)
       });
   }
   useEffect(() => {
@@ -213,16 +205,11 @@ useEffect(() => {
     // Calculate the initial grand total
     const initialGrandTotal = items.reduce((total, item) => total + item.total, 0);
     const initialPurchaseTotal = items.reduce((purchasePriceTotal, item) => parseInt(purchasePriceTotal) + parseInt(item.purchasePriceTotal), 0);
-    console.log("purchasepriceTotal",items)
-    console.log("intialGrandTotal",initialGrandTotal)
-    console.log("intialpruhcaseprice totlal",initialPurchaseTotal)
     const intialProfitTotal=initialGrandTotal-initialPurchaseTotal
 
     // setPurchaseTotal(initialPurchaseTotal);
     setGrandTotal(initialGrandTotal);
     setProfitTotal(intialProfitTotal)
-    console.log(profitTotal)
-    // console.log(p)
   }, [items]);
 
 
@@ -257,7 +244,6 @@ useEffect(() => {
 
 const documentData = { items, grandTotal, formData };
 
-  // console.log(documentData.formData)
 
 
   return (
@@ -380,7 +366,7 @@ const documentData = { items, grandTotal, formData };
               {items.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  {/* {console.log(item)} */}
+                  {/* {(item)} */}
 
                   <td>
                     <Select

@@ -32,13 +32,9 @@ const EditProduct = () => {
       .get(`http://localhost:8000/api/product/getProducts`)
       .then((response) => {
         setProductData(response.data.data);
-        // console.log("get product get api data for my products page:-", response.data.data);
-        // setIsLoading(false);
       })
       .catch((err) => {
-        // setIsLoading(false);
         toast.error("Some error occured ! Please try after some time");
-        console.log("error===>", err)
       });
   }
   useEffect(() => {
@@ -59,11 +55,9 @@ const EditProduct = () => {
 
     if (!validateForm()) {
       toast.error('Please fill in all required fields.');
-      console.log("no data available");
       return;
     }
 
-    console.log("update Product Form data is ", formProductData)
     axios
       .post(`http://localhost:8000/api/product/updateProduct/${formProductData._id}`, formProductData, {
         headers: {
@@ -77,19 +71,16 @@ const EditProduct = () => {
         getProducts()
         // setCategoriesData(response.data.data);
         // setLoading(false)
-        console.log(response.data);
         setEditPopup(false)
         toast.success("Product update successfully")
       })
       .catch((err) => {
         toast.error("Some error occured ! Please try after some time");
-        console.error("error==>", err)
       });
   };
   // deleteProduct
   const deleteProduct = (id) => {
     // e.preventDefault()
-    console.log(id)
     axios
       .post(`http://localhost:8000/api/product/deleteProduct/${id}`)
       .then((response) => {
@@ -98,13 +89,11 @@ const EditProduct = () => {
         getProducts()
         // setCategoriesData(response.data.data);
         // setLoading(false)
-        console.log(response.data);
         setDeletePopup(false)
         toast.success("product deleted successfully")
       })
       .catch((err) => {
         toast.error("Some error occured ! Please try after some time");
-        console.log("error==>", err)
       });
   };
 
@@ -115,7 +104,6 @@ const EditProduct = () => {
 
   const handleOnEditProductChange = (event) => {
     setFormProductData({ ...formProductData, [event.target.name]: event.target.value });
-    console.log(formProductData)
   };
 
   const handleOnProductCategoryChange = (e, categoryData) => {
@@ -124,10 +112,7 @@ const EditProduct = () => {
       (category) => category._id === selectedCategoryId
     );
     const categoryId = selectedCategory._id;
-    // console.log("categoryId====>",categoryId)
     const categoryName = selectedCategory.name;
-    // console.log("categoryName====>",categoryName)
-    // setFormProductData(formProductData.selectedCategoryId)
     setFormProductData({
       ...formProductData,
       categoryId: selectedCategoryId,
@@ -137,7 +122,6 @@ const EditProduct = () => {
 
   const handleEditBtn = (e, productDetail) => {
     setEditPopup(true)
-    console.log(productDetail)
     // setFormProductData({
     //   ...formProductData,
     //   name:productDetail.name,
@@ -146,7 +130,6 @@ const EditProduct = () => {
     //   categoryName:productDetail.categoryName,
     // })
     setFormProductData(productDetail)
-    console.log(formProductData)
 
     // handleOnProductCategoryChange() 
   }
@@ -197,7 +180,7 @@ const EditProduct = () => {
                 <th className={styles.actionButtons}>action</th>
               </tr>
               {
-                productData.map((product, index) => (
+                productData?.reverse().map((product, index) => (
                   <tr className={styles.itemRow} key={index}>
                     <td className={styles.itemName}>{product.name}</td>
                     <td className={styles.offerPrice}>{product.price}</td>
@@ -220,7 +203,6 @@ const EditProduct = () => {
                     </td>
                     {deletePopup &&
                       <div>
-                        {console.log("product===>",deleteProductDetail)}
                         <div className={styles.deleteItem}>
                           <div className={styles.delelteModel}>
                             <div className={styles.delelteModelWrapper}>

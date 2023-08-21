@@ -36,10 +36,8 @@ const QuotationHistory = () => {
       .then((response) => {
         setQuotationInfo(response.data.data)
         // quotationInfo.reverse()
-        console.log("response===>", response.data.data)
       })
       .catch((err) => {
-        console.log("error===>", err)
       })
   }
   useEffect(() => {
@@ -50,37 +48,9 @@ const QuotationHistory = () => {
   // get product
 
 
-  // update product
-  const updateProduct = (e) => {
-    e.preventDefault()
-
-    console.log("update Product Form data is ", formProductData)
-    axios
-      .post(`http://localhost:8000/api/product/updateProduct/${formProductData._id}`, formProductData, {
-        headers: {
-          authorization: `Bearer ${sessionStorage.token}`
-        },
-      })
-      .then((response) => {
-        // getCategoriesData();
-        getQuotation();
-        // toast(response.data.message);
-        // setOpenProductModal(false)  
-        // setCategoriesData(response.data.data);
-        // setLoading(false)
-        console.log(response.data);
-        setEditPopup(false)
-        toast.success("Quotation update successfully")
-      })
-      .catch((err) => {
-        toast.error("Some error occured ! Please try after some time");
-        console.error("error==>", err)
-      });
-  };
   // deleteProduct
   const deleteQuotation = (id) => {
     // e.preventDefault()
-    console.log(id)
     axios
       .post(`http://localhost:8000/api/billing/deleteQuotation/${id}`)
       .then((response) => {
@@ -90,51 +60,17 @@ const QuotationHistory = () => {
         // setCategoriesData(response.data.data);
         // setLoading(false)
         getQuotation();
-        console.log(response.data);
         setDeletePopup(false)
         toast.success("Quotation deleted successfully")
       })
       .catch((err) => {
         toast.error("Some error occured ! Please try after some time");
-        console.log("error==>", err)
       });
   };
 
-
-
-
-
-
-  const handleOnEditProductChange = (event) => {
-    setFormProductData({ ...formProductData, [event.target.name]: event.target.value });
-    console.log(formProductData)
-  };
-
-  const handleOnProductCategoryChange = (e, categoryData) => {
-    const selectedCategoryId = e.target.value;
-    const selectedCategory = categoryData.find(
-      (category) => category._id === selectedCategoryId
-    );
-    const categoryId = selectedCategory._id;
-    // console.log("categoryId====>",categoryId)
-    const categoryName = selectedCategory.name;
-    // console.log("categoryName====>",categoryName)
-    // setFormProductData(formProductData.selectedCategoryId)
-    setFormProductData({
-      ...formProductData,
-      categoryId: selectedCategoryId,
-      categoryName: categoryName
-    });
-  }
-
   const handleEditBtn = (e, quotation) => {
-    //   setEditPopup(true)
-    //   console.log(quotation)
-    //   setFormProductData(productDetail)
-    //   console.log(formProductData)
     navigate(`/admin/updateQuotation/${quotation._id}`, { state: { quotationData: quotation } });
 
-    // handleOnProductCategoryChange() 
   }
 
   const handleDeletePopup = (e, product) => {
@@ -152,7 +88,6 @@ const QuotationHistory = () => {
 
   const handlePrintBtn =async (e,quotation) => {
     // e.preventDefault();
-      // console.log(quotation)
 
        setPrintQuotation(quotation)
   }
@@ -228,8 +163,6 @@ const QuotationHistory = () => {
                   //     >
                   <tr className={styles.itemRow} key={index}>
                     <td className={styles.itemName}>{quotation.formData?.name}</td>
-                    {/* {console.log(quotationInfo[index])} */}
-                    {/* {console.log(quotation)} */}
                     <td className={styles.offerPrice}>{quotation.formData?.subject}</td>
                     <td className={styles.offerPrice}>{formatDate(quotation.formData?.billDate)}</td>
                     <td className={styles.actionButtons}>
@@ -242,7 +175,6 @@ const QuotationHistory = () => {
                         /> */}
                       </div>
                       <div style={{ display: 'none' }}>
-                      {/* {console.log(quotation)} */}
                         <DocumentPrint ref={componentRef} documentData={componentDataRef.current} />
                         </div>
                       <div className={styles.printIconWrapper} onClick={(e)=>handlePrintWrapper(e,quotation)}>
@@ -260,7 +192,6 @@ const QuotationHistory = () => {
                     {/* delete quotation */}
                     {deletePopup &&
                       <div>
-                        {console.log("product===>", deleteProductDetail)}
                         <div className={styles.deleteItem}>
                           <div className={styles.delelteModel}>
                             <div className={styles.delelteModelWrapper}>

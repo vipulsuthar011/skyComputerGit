@@ -28,7 +28,6 @@ const SignUp = () => {
         e.preventDefault();
         await axios.post('http://localhost:8000/api/user/signUp', { phoneNumber: value.phoneNumber, password: value.password, userType: "customer" }).
             then((response) => {
-                console.log(response)
                 // sessionStorage.setItem("userType", "customer")
                 toast(response.data.message)
                 // navigation("/sign-up")
@@ -36,7 +35,6 @@ const SignUp = () => {
                 navigate('/sign-in', { replace: true })
 
             }).catch((error) => {
-                console.log(error)
             })
     }
     return (

@@ -1,11 +1,9 @@
 import productModal from "../modals/productModal.js";
 
 export const addProduct = async (req, res) => {
-console.log("body",req.body);
 
   try {
    if(!req.body || req.body.price===NaN || req.body.purchasePrice===NaN){
-    console.log("in if")
 
     res.status(200).json({
       message: "No product data available",
@@ -14,8 +12,7 @@ console.log("body",req.body);
     });
   }
   else{
-    console.log("in else");
-     console.log(req.body)
+  
     const ifProductExist = await productModal.findOne({ name: req.body.name });
 
     if (ifProductExist) {
@@ -26,7 +23,7 @@ console.log("body",req.body);
     } else {
       const productData = new productModal(req.body);
       productData.save();
-      console.log(productData)
+      // (productData)
       res.status(200).json({
         message: "Product Added Successfully",
         success: true,
@@ -96,7 +93,6 @@ export const getProducts = async (req, res) => {
 };
 export const getProductByCategory = async (req, res) => {
   const { categoryId } = req.params;
-  console.log("params", req.params);
   try {
     const productsData = await productModal.find({ categoryId });
     res.status(200).json({

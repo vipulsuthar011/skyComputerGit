@@ -22,7 +22,6 @@ const SignIn = () => {
         axios.post('http://localhost:8000/api/user/login', { phoneNumber: value.phoneNumber, password: value.password }).
             then((response) => {
 
-                console.log(response)
                 if(response.data.success){
                     toast(response.data.message)
                     sessionStorage.setItem("token", response.data.authToken)
@@ -36,9 +35,7 @@ const SignIn = () => {
                 debugger
          
             }).catch((error) => {
-                console.log(error)
                 setError(error.response.data.error)
-                console.log(error.response.data.error)
             })
     }
     return (

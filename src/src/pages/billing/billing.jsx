@@ -61,11 +61,9 @@ const Billing = ({sideView,setSideView}) => {
   const addQuotation = () => {
     axios.post('http://localhost:8000/api/billing/addQuotation', documentData)
       .then((response) => {
-        console.log(response)
         toast.success(response.data.message)
       })
       .catch((err) => {
-        console.log(err)
         toast.error(err.response.data.message)
       })
   }
@@ -77,13 +75,10 @@ const Billing = ({sideView,setSideView}) => {
       .get(`http://localhost:8000/api/product/getProducts`)
       .then((response) => {
         setProductData(response.data.data);
-        // console.log("get product get api data for my products page:-", response.data.data);
-        // setIsLoading(false);
       })
       .catch((err) => {
         // setIsLoading(false);
         toast.error("Some error occured ! Please try after some time");
-        console.log("error===>", err)
       });
   }
   useEffect(() => {
@@ -138,7 +133,6 @@ const Billing = ({sideView,setSideView}) => {
     // Calculate and set the grand total
     const purchaseTotal = updatedItems.reduce((purchasePriceTotal, item) => parseInt(purchasePriceTotal) + parseInt(item.purchasePriceTotal), 0);
     // setPurchaseTotal(grandTotal);
-    console.log(purchaseTotal)
     const profitCalulate=grandTotal-purchaseTotal
     setProfitTotal(profitCalulate)
   };
@@ -159,7 +153,6 @@ const Billing = ({sideView,setSideView}) => {
     const purchaseTotal = updatedItems.reduce((purchasePriceTotal, item) => parseInt(purchasePriceTotal) + parseInt(item.purchasePriceTotal), 0);
 
     // setPurchaseTotal(grandTotal);
-    // console.log(purchaseTotal)
     const profitCalulate=grandTotal-purchaseTotal
     setProfitTotal(profitCalulate)
   };
@@ -169,16 +162,11 @@ const Billing = ({sideView,setSideView}) => {
     // Calculate the initial grand total
     const initialGrandTotal = items.reduce((total, item) => total + item.total, 0);
     const initialPurchaseTotal = items.reduce((purchasePriceTotal, item) => purchasePriceTotal + item.purchasePriceTotal, 0);
-    console.log("purchasepriceTotal",items)
-    console.log("intialGrandTotal",initialGrandTotal)
-    console.log("intialpruhcaseprice totlal",initialPurchaseTotal)
     const intialProfitTotal=initialGrandTotal-initialPurchaseTotal
 
     // setPurchaseTotal(initialPurchaseTotal);
     setGrandTotal(initialGrandTotal);
     setProfitTotal(intialProfitTotal)
-    console.log(profitTotal)
-    // console.log(p)
   }, [items]);
 
 
@@ -336,7 +324,6 @@ const Billing = ({sideView,setSideView}) => {
               {items.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  {/* {console.log(item)} */}
 
                   <td>
                     <Select

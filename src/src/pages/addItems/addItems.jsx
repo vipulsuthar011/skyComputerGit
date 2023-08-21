@@ -10,11 +10,9 @@ const AddItems = ({ btnActive }) => {
     const [formProductData, setFormProductData] = useState(initalProductData)
     const navigation=useNavigate()
 
-    // console.log(categoryData)
     // Api Calling
     const handleOnProductChange = (event) => {
         setFormProductData({ ...formProductData, [event.target.name]: event.target.value });
-        console.log(formProductData)
     };
 
     const validateForm = () => {
@@ -53,15 +51,13 @@ const AddItems = ({ btnActive }) => {
                 },
             })
             .then((response) => {
-                console.log(response);
                 setFormProductData(initalProductData)
                 navigation('/admin/quotationhistory/')
                 toast(response.data.message);
             })
             .catch((error) => {
-                console.log(error);
                 toast(error.message)
-                console.log(error.response.data.error);
+                (error.response.data.error);
             });
     };
 
@@ -72,7 +68,6 @@ const AddItems = ({ btnActive }) => {
 
         if (!validateForm()) {
             toast.error('Please fill in all required fields.');
-            console.log("no ddata available");
             return;
           }
           else{
@@ -98,14 +93,11 @@ const AddItems = ({ btnActive }) => {
                 },
             })
             .then((response) => {
-                console.log(response);
                 setFormProductData(initalProductData)
                 toast(response.data.message);
             })
             .catch((error) => {
-                console.log(error);
                 toast(error.message)
-                console.log(error.response.data.error);
             });
           }
 

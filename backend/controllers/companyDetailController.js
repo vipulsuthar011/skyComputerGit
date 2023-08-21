@@ -22,15 +22,11 @@ export const updateCompanyDetail = async (req, res) => {
     try {
     //   const { productId } = req.params;
     // const comapnyDetail = await companyDetailModal.findOne(req.body.term);
-    // console.log(comapnyDetail)
-    //   console.log("in if",comapnyDetail);
     //   await comapnyDetail.updateOne(req.body);
     const newTerms = req.body.term;
-    console.log(newTerms);
 
   
         const terms = await companyDetailModal.findOne();
-        console.log("terms",terms)
         terms.term = newTerms;
         await terms.save();
       res.status(200).json({
@@ -54,7 +50,6 @@ export const updateCompanyDetail = async (req, res) => {
   
         const companyDetail = new companyDetailModal(req.body);
         companyDetail.save();
-        console.log(companyDetail)
         res.status(200).json({
           message: "company Detail Added Successfully",
           success: true,

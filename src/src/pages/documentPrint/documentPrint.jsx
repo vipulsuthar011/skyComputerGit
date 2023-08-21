@@ -6,10 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 
 export const DocumentPrint = React.forwardRef((props, ref) => {
-    // console.log(props.documentData.formData);
     const [termAndCondition, setTermAndCondition] = useState([])
     const BillDetail=props.documentData
-    // console.log("billDEtail=======>",BillDetail)
 
     useEffect(() => {
       getCompanyDetail()
@@ -24,9 +22,7 @@ export const DocumentPrint = React.forwardRef((props, ref) => {
                 },
             })
             .then((response) => {
-                console.log(response.data.data[0].term)
                 setTermAndCondition(response.data.data[0].term);
-                // toast(response.data.message)
             })
     }
 
@@ -80,7 +76,6 @@ export const DocumentPrint = React.forwardRef((props, ref) => {
                         <tbody>
                             {BillDetail?.items?.map((item, index) => (
                                 <tr>
-                                    {/* {console.log(item)} */}
                                     <td className={styles.tableSrNO}>{index + 1}</td>
                                     <td className={styles.tableProduct}>{item?.label}</td>
                                     <td className={styles.tablePrice}>{item?.price}</td>
