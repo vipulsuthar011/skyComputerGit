@@ -134,7 +134,27 @@ const QuotationHistory = () => {
     };
   }, []);
 
+  const sortedData = [...quotationInfo].sort((a, b) => new Date(a.billDate) - new Date(b.billDate));
+
+  console.log(sortedData)
+
   
+const groupedData = quotationInfo.reduce((acc, item) => {
+  // console.log("in gropup")
+  // console.log("acc",acc)
+  // console.log("item",item)
+
+  const date = item.billDate;
+  if (!acc[date]) {
+    acc[date] = [];
+  }
+  acc[date].push(item);
+  return acc;
+}, {});
+
+// console.log(groupedData)
+// console.log(quotationInfo)
+
   // quotationInfo
 
 
@@ -155,7 +175,7 @@ const QuotationHistory = () => {
                 <th className={styles.actionButtons}>action</th>
               </tr>
               {
-                quotationInfo?.reverse().map((quotation, index) => (
+                sortedData?.reverse().map((quotation, index) => (
                   // <Link to={{
                   //     pathname:`/admin/updateQuotation/${quotation._id}`,
                   //     state:{quotationData:"vipul"}

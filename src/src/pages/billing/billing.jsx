@@ -9,9 +9,12 @@ import { faIndianRupeeSign, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { DocumentPrint } from '../documentPrint/documentPrint';
 import ReactToPrint, { useReactToPrint } from 'react-to-print';
 import { toast } from 'react-toastify';
+import {  useNavigate } from 'react-router-dom';
 
 
 const Billing = ({ sideView, setSideView }) => {
+
+  const Navigate=useNavigate();
   // setSideView(false)
 
   const [grandTotal, setGrandTotal] = useState(0)
@@ -61,7 +64,9 @@ const Billing = ({ sideView, setSideView }) => {
   const addQuotation = () => {
     axios.post('http://localhost:8000/api/billing/addQuotation', documentData)
       .then((response) => {
-        toast.success(response.data.message)
+        toast.success(response.data.message);
+        Navigate('/admin/quotationhistory')
+        handleBillReset();
       })
       .catch((err) => {
         toast.error(err.response.data.message)
@@ -82,7 +87,8 @@ const Billing = ({ sideView, setSideView }) => {
       });
   }
   useEffect(() => {
-    getProducts()
+    getProducts();
+    handleBillReset();
   }, []);
 
 
@@ -187,7 +193,8 @@ const Billing = ({ sideView, setSideView }) => {
   };
 
   const handleBillReset = () => {
-    setItems([]);
+    // setItems([]);
+    setItems([{ label: '', price: 0, purchasePrice: 0, purchaseTotal: 0, purchasePriceTotal: 0, quantity: 0, total: 0 }]);
     setFormData({
       billDate: new Date().toISOString().slice(0, 10),
       mobile: '',

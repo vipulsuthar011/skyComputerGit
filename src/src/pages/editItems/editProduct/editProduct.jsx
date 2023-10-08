@@ -173,19 +173,19 @@ const EditProduct = () => {
           <div className={styles.listWrapper}>
             <table className={styles.table}>
               <tr>
-                <th>item name</th>
-                <th>price</th>
-                <th>  purchase price</th>
-                <th>Short Description</th>
+                <th className={styles.thName}>item name</th>
+                <th className={styles.thPrice}>price</th>
+                <th className={styles.thPprice}>  purchase price</th>
+                <th className={styles.thDescription}>Short Description</th>
                 <th className={styles.actionButtons}>action</th>
               </tr>
               {
                 productData?.reverse().map((product, index) => (
                   <tr className={styles.itemRow} key={index}>
-                    <td className={styles.itemName}>{product.name}</td>
-                    <td className={styles.offerPrice}>{product.price}</td>
-                    <td className={styles.offerPrice}>{product.purchasePrice}</td>
-                    <td className={styles.offerPrice}>{product.shortDescription}</td>
+                    <td className={styles.thName}>{product.name}</td>
+                    <td className={styles.thPrice}>{product.price}</td>
+                    <td className={styles.thPprice}>{product.purchasePrice}</td>
+                    <td className={styles.thDescription}>{product.shortDescription}</td>
                     <td className={styles.actionButtons}>
                       {/* <FontAwesomeIcon icon="fa-duotone fa-trash" /> */}
                       {/* <FontAwesomeIcon icon={faTrash} /> */}

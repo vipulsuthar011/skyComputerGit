@@ -98,49 +98,31 @@
 .thSrNo{
 width: 1px;
 }
-
 .thName{
 width: 40%;
 }
-
 .thPrice{
-    /* width: 200px; */
-    /* display: inline-block; */
-    /* display: flex; */
     width: 10%;
-
 }
 .thPrice input{
      width: 80%;
 }
-
 .thPprice{
-    /* width: max-content; */
-    /* width: 100px; */
     width: 15%;
-    /* display: flex; */
 }
 .thPprice input{
-    /* width: max-content; */
-    /* width: 50px;/ */
     width: 80%;
-
 }
-
 .thQuantity{
 width: 10%;
 }
 .thQuantity input{
 width: 100%;
 }
-
 .thTotal{
-
 }
-
 .thAction{
     width: 2%;
-
 }
 
 /* to remove input number arrow */

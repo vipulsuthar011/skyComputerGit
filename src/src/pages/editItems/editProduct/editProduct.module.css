@@ -135,13 +135,7 @@
 
 
 
-/* actionButtons */
-.actionButtons {
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    /* justify-content: space-between; */
-}
+
 
 
 /* edit product START */
@@ -260,6 +254,34 @@ border-radius: 8px;
 padding: 5px 20px;
 width: 100%;
 }
+
+
+    .thName{
+    width: 45%;
+    font-weight: bold;
+    }
+    .thPrice{
+        width: 15%;
+        text-align: center;
+
+    }
+    .thPprice{
+        width: 15%;
+        /* margin: auto; */
+        text-align: center;
+    }
+    .thDescription{
+    width: 20%;
+    }
+    /* actionButtons */
+.actionButtons {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    /* width: 5%; */
+    /* justify-content: space-between; */
+}
+
 
 .editButtonWrapper{
     display: flex;

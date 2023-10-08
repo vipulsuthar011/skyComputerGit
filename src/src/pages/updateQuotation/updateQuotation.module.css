@@ -90,6 +90,37 @@ color: black;
 border: none;
 }
 
+
+.thSrNo{
+  width: 1px;
+  }
+  .thName{
+  width: 40%;
+  }
+  .thPrice{
+      width: 10%;
+  }
+  .thPrice input{
+       width: 80%;
+  }
+  .thPprice{
+      width: 15%;
+  }
+  .thPprice input{
+      width: 80%;
+  }
+  .thQuantity{
+  width: 10%;
+  }
+  .thQuantity input{
+  width: 100%;
+  }
+  .thTotal{
+  }
+  .thAction{
+      width: 2%;
+  }
+
 /* to remove input number arrow */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

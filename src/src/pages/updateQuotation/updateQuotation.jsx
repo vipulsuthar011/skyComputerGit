@@ -9,13 +9,14 @@ import { faIndianRupeeSign, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { DocumentPrint } from '../documentPrint/documentPrint';
 import ReactToPrint, { useReactToPrint } from 'react-to-print';
 import { toast } from 'react-toastify';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 
 const UpdateQuotaton = () => {
     const {quotationId}=useParams();
     const location = useLocation();
     const { quotationData } = location.state; 
+    const Navigate=useNavigate();
 
     
 
@@ -85,6 +86,8 @@ const UpdateQuotaton = () => {
     axios.post(`http://localhost:8000/api/billing/updateQuotation/${quotationData._id}`,documentData)
     .then((response)=>{
       toast.success(response.data.message)
+      handleBillReset();
+      Navigate('/admin/quotationhistory');
     })
     .catch((err)=>{
       toast.error(err.response.data.message)
@@ -229,7 +232,8 @@ useEffect(() => {
   };
 
   const handleBillReset=()=>{
-    setItems([]);
+    // setItems([]);
+    setItems([{ label: '', price: 0, purchasePrice: 0, purchaseTotal: 0, purchasePriceTotal: 0, quantity: 0, total: 0 }]);
     setFormData({
       billDate: new Date().toISOString().slice(0, 10),
       mobile: '',
@@ -243,7 +247,6 @@ useEffect(() => {
   }
 
 const documentData = { items, grandTotal, formData };
-
 
 
   return (
@@ -353,13 +356,13 @@ const documentData = { items, grandTotal, formData };
           <table className={styles.billTable}>
             <thead>
               <tr>
-                <th>Sr.NO.</th>
-                <th>Item Name</th>
-                <th>Price</th>
-                <th>Purchase Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Action</th>
+              <th className={styles.thSrNo}>Sr.NO.</th>
+                <th className={styles.thName}>Item Name</th>
+                <th className={styles.thPrice}>Price</th>
+                <th className={styles.thPprice}>Purchase Price</th>
+                <th className={styles.thQuantity}>Quantity</th>
+                <th className={styles.thTotal}>Total</th>
+                <th className={styles.thAction}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -368,7 +371,7 @@ const documentData = { items, grandTotal, formData };
                   <td>{index + 1}</td>
                   {/* {(item)} */}
 
-                  <td>
+                  <td className={styles.thSrNo}>
                     <Select
                       value={item}
                       options={productData.map((product) => ({
@@ -412,7 +415,7 @@ const documentData = { items, grandTotal, formData };
                       isSearchable
                     />
                   </td>
-                  <td>
+                  <td className={styles.thPrice}>
                   <FontAwesomeIcon icon={faIndianRupeeSign} className='pr-1'/>
                     <input
                       type="number"
@@ -420,7 +423,7 @@ const documentData = { items, grandTotal, formData };
                       onChange={(event) => handlePriceChange(event, index)}
                     />
                   </td>
-                  <td>
+                  <td className={styles.thPprice}>
                   <FontAwesomeIcon icon={faIndianRupeeSign} className='pr-1'/>
                     <input
                       type="number"
@@ -428,7 +431,7 @@ const documentData = { items, grandTotal, formData };
                       onChange={(event) => handlePurchasePriceChange(event, index)}
                     />
                   </td>
-                  <td>
+                  <td className={styles.thQuantity}>
                     <input
                       type="number"
                       value={item.quantity}
@@ -437,7 +440,7 @@ const documentData = { items, grandTotal, formData };
                   </td>
                   {/* <td onChange={(event) => handleQuantityChange(event, index)}>{item.quantity ? (item.price * item.quantity).toFixed(2) : 0}</td> */}
                                 <td className='font-weight-bolder color-white text-dark  ' onChange={(event) => handleQuantityChange(event, index)}><FontAwesomeIcon icon={faIndianRupeeSign}/> {item.total} /-</td>
-                  <td>
+                  <td className={styles.thAction}> 
                     <div className={styles.deleteIconWrapper} onClick={() => handleRemoveRow(index)}>
                       {/* <div className={styles.deleteIconWrapper} onClick={(e)=>handleDeletePopup(e,product)}> */}
                       <FontAwesomeIcon icon={faTrash} className={styles.deleteIcon} />
