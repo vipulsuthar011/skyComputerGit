@@ -207,7 +207,7 @@ const Billing = ({ sideView, setSideView }) => {
     setGrandTotal(0);
   }
 
-  const documentData = ({ items, grandTotal, formData, profitTotal });
+  const documentData = ({ items, grandTotal, formData, profitTotal,isClosed:false });
 
 
 

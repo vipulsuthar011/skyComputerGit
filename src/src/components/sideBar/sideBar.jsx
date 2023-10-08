@@ -34,6 +34,13 @@ const SideBar = ({ sideView, setSideView }) => {
             <div className={`${sideView ? styles.elementNameMax : styles.elementNameMin}`}>Quotation History</div>
           </div>
         </Link>
+        {/* Closed Quotation  */}
+        <Link to="/admin/closedquotation/">
+          <div className={` ${location.pathname === '/admin/closedquotation/' && "active"} ${sideView ? styles.elementWrapperMax : styles.elementWrapperMin}`}>
+          <FontAwesomeIcon icon={faFile} className={` ml-2 ${styles.elementLogo}`} />
+            <div className={`${sideView ? styles.elementNameMax : styles.elementNameMin}`}>Closed Quotation</div>
+          </div>
+        </Link>
         {/* ADD product`` */}
         <Link to="/admin/addproduct/" >
           <div className={`${location.pathname === '/admin/addproduct/' && "active"} ${sideView ? styles.elementWrapperMax : styles.elementWrapperMin}`}>

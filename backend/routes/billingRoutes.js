@@ -1,9 +1,10 @@
 import express from 'express'
-import { addQuotation, deleteQuotation, getQuotation, updateQuotation } from '../controllers/billController.js';
+import { addQuotation, deleteQuotation, getClosedQuotation, getQuotation, updateQuotation } from '../controllers/billController.js';
 
 const billingRoutes=express()
 
 billingRoutes.get('/getQuotation',getQuotation)
+billingRoutes.get('/getClosedQuotation',getClosedQuotation)
 billingRoutes.post('/addQuotation',addQuotation)
 billingRoutes.post('/deleteQuotation/:quotationId',deleteQuotation)
 billingRoutes.post('/updateQuotation/:quotationId',updateQuotation)

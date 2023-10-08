@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import styles from './quotationHistory.module.css'
+import styles from './closedQuotation.module.css'
 import axios from 'axios'
 // import FontAwesomeIcon from 'FontAwesomeIcon'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,7 +13,7 @@ import UpdateQuotaton from '../updateQuotation/updateQuotation';
 import { DocumentPrint } from '../documentPrint/documentPrint';
 import ReactToPrint, { useReactToPrint } from 'react-to-print';
 
-const QuotationHistory = () => {
+const ClosedQuotation = () => {
   const [viewType, setViewType] = useState('list')
   const [formProductData, setFormProductData] = useState({ name: '', shortDescription: '', image: "" })
   const [editPopup, setEditPopup] = useState(false)
@@ -32,7 +32,7 @@ const QuotationHistory = () => {
 
   // get quotation
   const getQuotation = () => {
-    axios.get('http://localhost:8000/api/billing/getQuotation')
+    axios.get('http://localhost:8000/api/billing/getClosedQuotation')
       .then((response) => {
         setQuotationInfo(response.data.data)
         // quotationInfo.reverse()
@@ -134,13 +134,15 @@ const QuotationHistory = () => {
     };
   }, []);
 
+  
+
   const sortedData = [...quotationInfo].sort((a, b) => new Date(a.billDate) - new Date(b.billDate));
   // quotationInfo
 
   return (
     <div className={styles.editProductWrapper}>
       <div className={styles.editPrdouctHeaderSection}>
-        <div className={styles.editItemHeading}>Quotation History</div>
+        <div className={styles.editItemHeading}>Closed Quotation</div>
         <Link to="/admin/billing/"><div className={styles.HeadAddItemBtn}>ADD Quotation</div></Link>
       </div>
       {
@@ -244,4 +246,4 @@ const QuotationHistory = () => {
   )
 }
 
-export default QuotationHistory;
+export default ClosedQuotation;

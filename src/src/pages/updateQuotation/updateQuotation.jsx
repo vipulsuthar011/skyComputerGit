@@ -17,8 +17,10 @@ const UpdateQuotaton = () => {
     const location = useLocation();
     const { quotationData } = location.state; 
     const Navigate=useNavigate();
+    console.log(quotationData)
 
     
+    const [isClosed, setIsClosed] = useState(quotationData.isClosed);
 
 
   let initialProductData = [{ name: "", price: "",pruchasePrice:"" }]
@@ -246,15 +248,32 @@ useEffect(() => {
     setGrandTotal(0);
   }
 
-const documentData = { items, grandTotal, formData };
+const documentData = { items, grandTotal, formData,isClosed:isClosed };
 
 
+const handleToggle = () => {
+  setIsClosed(!isClosed);
+};
   return (
     <div className={styles.billMainWrapper}>
       <div className={styles.billWrapper}>
 
         {/* Sales invoice */}
+        <div className='d-flex align-items-center justify-content-between'>
         <div className={styles.salesInvoiceTitle}>Sales invoice</div>
+        <div className={styles.toggleSwitch}>
+        <div className='font-weight-bold mr-2 mb-1'>Closed</div>
+      <label className={styles.switch}>
+        <input
+          type="checkbox"
+          checked={isClosed}
+          onChange={handleToggle}
+          className={styles.checkbox}
+        />
+        <span className={`${styles.slider} ${isClosed ? styles.sliderOn : ''}`} />
+      </label>
+    </div>
+        </div>
 
         {/* bill and customer details */}
         <div className={styles.billCustomerDetail}>

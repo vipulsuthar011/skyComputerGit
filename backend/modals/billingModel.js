@@ -24,6 +24,7 @@ const formSchema = new Schema({
     grandTotal: Number,
     items: [itemSchema], // Embed the items as an array of objects
     formData:formSchema,
+    isClosed:Boolean,
   });
 
 export default mongoose.model('billingModel',billingSchema)

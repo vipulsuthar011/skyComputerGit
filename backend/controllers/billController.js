@@ -15,6 +15,7 @@ export const addQuotation = async (req, res) => {
                  {
 
                         const billData = new billingModel(req.body)
+                        console.log(req.body)
                         billData.save();
                         res.json({
                                 // data: billData,
@@ -35,9 +36,25 @@ export const addQuotation = async (req, res) => {
 
 export const getQuotation = async (req, res) => {
         try {
-                const billData = await billingModel.find({});
+                const billData = await billingModel.find({isClosed:false});
                 res.status(200).json({
                         message: "Product fetched Successfully",
+                        success: true,
+                        data: billData,
+                });
+        } catch (error) {
+                res.status(200).json({
+                        message: "Please try after some time",
+                        success: false,
+                        error: error.message,
+                });
+        }
+}
+export const getClosedQuotation = async (req, res) => {
+        try {
+                const billData = await billingModel.find({isClosed:true});
+                res.status(200).json({
+                        message: "Closed Quotation fetched Successfully",
                         success: true,
                         data: billData,
                 });
@@ -72,6 +89,7 @@ export const updateQuotation = async (req, res) => {
                 const { quotationId } = req.params;
                 const quotationData = await billingModel.findOne({ _id: quotationId });
                 await quotationData.updateOne(req.body);
+                console.log(req.body)
                 res.status(200).json({
                         message: "Quotation Updated Successfully",
                         success: true,
