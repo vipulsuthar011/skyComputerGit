@@ -6,14 +6,39 @@
   font-family:"Raleway";
 }
 
-.loader{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-transform: translate(-50%,-50%);
-width: 50vw;
-height: 200px;
+
+.LoaderWrapper{
+  background-color: #F1F1F6;
+  min-height: calc(100vh - 80px);
 }
+
+.loader {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 5px solid #FFCA40;
+  border-right: 5px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  /* z-index: -9999; */
+  position: absolute;
+   /* top: 50%; 
+  left: 50%;  */
+  top: calc(50% - 12px);
+  left: calc(50% + 68px);
+transform: translate(-50%,-50%);
+  
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
 
 .edit-icon{
   position: absolute;

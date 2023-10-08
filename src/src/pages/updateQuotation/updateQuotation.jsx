@@ -17,6 +17,8 @@ const UpdateQuotaton = () => {
     const location = useLocation();
     const { quotationData } = location.state; 
     const Navigate=useNavigate();
+    const [isLoading,setIsLoading]=useState(false)
+
     console.log(quotationData)
 
     
@@ -85,14 +87,17 @@ const UpdateQuotaton = () => {
 
   // update quotation
   const updateQuotation=()=>{
+    setIsLoading(true)
     axios.post(`http://localhost:8000/api/billing/updateQuotation/${quotationData._id}`,documentData)
     .then((response)=>{
+      setIsLoading(false)
       toast.success(response.data.message)
       handleBillReset();
       Navigate('/admin/quotationhistory');
     })
     .catch((err)=>{
       toast.error(err.response.data.message)
+      setIsLoading(true)
       // toast("error")
     })
   }
@@ -255,7 +260,12 @@ const handleToggle = () => {
   setIsClosed(!isClosed);
 };
   return (
-    <div className={styles.billMainWrapper}>
+    <div>
+      {isLoading?
+<div className='LoaderWrapper'>
+  <span className='loader'></span>
+</div>:
+      <div className={styles.billMainWrapper}>
       <div className={styles.billWrapper}>
 
         {/* Sales invoice */}
@@ -507,6 +517,8 @@ const handleToggle = () => {
 
       </div>
     </div>
+}
+   </div>
 
 
 

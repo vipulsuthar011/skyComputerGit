@@ -23,6 +23,7 @@ const ClosedQuotation = () => {
   const [quotationInfo, setQuotationInfo] = useState(initialQuotationInfo)
   const [printQuotation, setPrintQuotation] = useState('')
   const [printStatus, setPrintStatus] = useState(false)
+  const [isLoading,setIsLoading]=useState(true)
   const navigate = useNavigate();
   
   const componentRef = useRef();
@@ -35,9 +36,11 @@ const ClosedQuotation = () => {
     axios.get('http://localhost:8000/api/billing/getClosedQuotation')
       .then((response) => {
         setQuotationInfo(response.data.data)
+        setIsLoading(false)
         // quotationInfo.reverse()
       })
       .catch((err) => {
+        setIsLoading(true)
       })
   }
   useEffect(() => {
@@ -140,8 +143,13 @@ const ClosedQuotation = () => {
   // quotationInfo
 
   return (
-    <div className={styles.editProductWrapper}>
-      <div className={styles.editPrdouctHeaderSection}>
+    <div >
+{isLoading?
+<div className='LoaderWrapper'>
+  <span className='loader'></span>
+</div>:
+     <div className={styles.editProductWrapper}>
+     <div className={styles.editPrdouctHeaderSection}>
         <div className={styles.editItemHeading}>Closed Quotation</div>
         <Link to="/admin/billing/"><div className={styles.HeadAddItemBtn}>ADD Quotation</div></Link>
       </div>
@@ -181,13 +189,12 @@ const ClosedQuotation = () => {
                       <div className={styles.printIconWrapper} onClick={(e)=>handlePrintWrapper(e,quotation)}>
                         <FontAwesomeIcon icon={faPrint} size='lg' className={styles.printIcon} />
                       </div>
-                      <div className={styles.editIconWrapper} onClick={(e) => handleEditBtn(e, quotation)}>
+                      {/* <div className={styles.editIconWrapper} onClick={(e) => handleEditBtn(e, quotation)}>
                         <FontAwesomeIcon icon={faPen} className={styles.editIcon} />
-                      </div>
-                      <div className={styles.deleteIconWrapper}  onClick={(e) => handleDeletePopup(e, quotation)}>
-                        {/* <div className={styles.deleteIconWrapper} onClick={(e)=>handleDeletePopup(e,product)}> */}
+                      </div> */}
+                      {/* <div className={styles.deleteIconWrapper}  onClick={(e) => handleDeletePopup(e, quotation)}>
                         <FontAwesomeIcon icon={faTrash} className={styles.deleteIcon} />
-                      </div>
+                      </div> */}
                     </td>
 
                     {/* delete quotation */}
@@ -242,6 +249,8 @@ const ClosedQuotation = () => {
           ""
       }
 
+     </div>
+     }
     </div>
   )
 }

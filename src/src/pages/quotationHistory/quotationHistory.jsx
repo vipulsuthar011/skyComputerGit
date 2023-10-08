@@ -23,6 +23,8 @@ const QuotationHistory = () => {
   const [quotationInfo, setQuotationInfo] = useState(initialQuotationInfo)
   const [printQuotation, setPrintQuotation] = useState('')
   const [printStatus, setPrintStatus] = useState(false)
+  const [isLoading,setIsLoading]=useState(true)
+
   const navigate = useNavigate();
   
   const componentRef = useRef();
@@ -35,9 +37,11 @@ const QuotationHistory = () => {
     axios.get('http://localhost:8000/api/billing/getQuotation')
       .then((response) => {
         setQuotationInfo(response.data.data)
+        setIsLoading(false)
         // quotationInfo.reverse()
       })
       .catch((err) => {
+        setIsLoading(true)
       })
   }
   useEffect(() => {
@@ -50,10 +54,12 @@ const QuotationHistory = () => {
 
   // deleteProduct
   const deleteQuotation = (id) => {
+    setIsLoading(true)
     // e.preventDefault()
     axios
       .post(`http://localhost:8000/api/billing/deleteQuotation/${id}`)
       .then((response) => {
+        setIsLoading(true)
         // getCategoriesData();
         // toast(response.data.message);
         //   getProducts()
@@ -65,6 +71,7 @@ const QuotationHistory = () => {
       })
       .catch((err) => {
         toast.error("Some error occured ! Please try after some time");
+        setIsLoading(true)
       });
   };
 
@@ -138,109 +145,117 @@ const QuotationHistory = () => {
   // quotationInfo
 
   return (
-    <div className={styles.editProductWrapper}>
-      <div className={styles.editPrdouctHeaderSection}>
-        <div className={styles.editItemHeading}>Quotation History</div>
-        <Link to="/admin/billing/"><div className={styles.HeadAddItemBtn}>ADD Quotation</div></Link>
-      </div>
-      {
-        viewType === "list" ?
-          <div className={styles.listWrapper}>
-            <table className={styles.table}>
-              <tr>
-                <th>Client Name</th>
-                <th>Subject</th>
-                <th>Billing Date</th>
-                <th className={styles.actionButtons}>action</th>
-              </tr>
-              {
-                sortedData?.reverse().map((quotation, index) => (
-                  // <Link to={{
-                  //     pathname:`/admin/updateQuotation/${quotation._id}`,
-                  //     state:{quotationData:"vipul"}
-                  // }}
-                  //     >
-                  <tr className={styles.itemRow} key={index}>
-                    <td className={styles.itemName}>{quotation.formData?.name}</td>
-                    <td className={styles.offerPrice}>{quotation.formData?.subject}</td>
-                    <td className={styles.offerPrice}>{formatDate(quotation.formData?.billDate)}</td>
-                    <td className={styles.actionButtons}>
-                      <div onClick={(e)=>handlePrintBtn(e,quotation)}>
-
-                        {/* <ReactToPrint
-                          trigger={() => <button className={styles.newRowBtn}  >Save and Print</button>}
-                          content={() => componentRef.current}
-                          onBeforePrint={(e)=>handlePrintBtn(e,quotation)}
-                        /> */}
-                      </div>
-                      <div style={{ display: 'none' }}>
-                        <DocumentPrint ref={componentRef} documentData={componentDataRef.current} />
-                        </div>
-                      <div className={styles.printIconWrapper} onClick={(e)=>handlePrintWrapper(e,quotation)}>
-                        <FontAwesomeIcon icon={faPrint} size='lg' className={styles.printIcon} />
-                      </div>
-                      <div className={styles.editIconWrapper} onClick={(e) => handleEditBtn(e, quotation)}>
-                        <FontAwesomeIcon icon={faPen} className={styles.editIcon} />
-                      </div>
-                      <div className={styles.deleteIconWrapper}  onClick={(e) => handleDeletePopup(e, quotation)}>
-                        {/* <div className={styles.deleteIconWrapper} onClick={(e)=>handleDeletePopup(e,product)}> */}
-                        <FontAwesomeIcon icon={faTrash} className={styles.deleteIcon} />
-                      </div>
-                    </td>
-
-                    {/* delete quotation */}
-                    {deletePopup &&
-                      <div>
-                        <div className={styles.deleteItem}>
-                          <div className={styles.delelteModel}>
-                            <div className={styles.delelteModelWrapper}>
-                              {/* edit item head */}
-                              <div className={styles.delelteItemHeaderWrapper}>
-                                <div className={styles.delelteItemHeadTitle}>Delete Product</div>
-                                <div className={styles.delelteCrossWrapper} ref={buttonRefEsc} onClick={() => setDeletePopup(false)}><FontAwesomeIcon icon={faXmark} className={styles.delelteCross} /></div>
-                              </div>
-                              <hr />
-
-                              {/* product or items data */}
-                              <div className={styles.delelteItemDataWrapper}>
-                                {/* item name */}
-
-                                <div className={styles.MainItemWrapper}>
-                                  <div className={styles.deleteMsgWrapper}>
-                                    Are you sure you want to delete the product Quotation ?
-                                  </div>
-                                </div>
-                                {/* button */}
-                                <div className={styles.delelteButtonWrapper}>
-                                  <button className={styles.delelteCloseBtn} onClick={() => setDeletePopup(false)}>close</button>
-                                  <button className={styles.delelteSaveChangesBTN} ref={buttonRefEnter}   onClick={() => deleteQuotation(deleteProductDetail._id)}>Confirm Delete</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    }
-                  </tr>
-                  // </Link>
-
-
-                ))
-              }
-            </table>
-
-            {/* EDIT popup start */}
-            {editPopup &&
-              <UpdateQuotaton />
-            }
-
-
-          </div>
-          :
-          ""
-      }
-
-    </div>
+   <div>
+    {
+      isLoading?
+        <div className='LoaderWrapper'>
+          <span className='loader'></span>
+        </div>:
+       <div className={styles.editProductWrapper}>
+       <div className={styles.editPrdouctHeaderSection}>
+         <div className={styles.editItemHeading}>Quotation History</div>
+         <Link to="/admin/billing/"><div className={styles.HeadAddItemBtn}>ADD Quotation</div></Link>
+       </div>
+       {
+         viewType === "list" ?
+           <div className={styles.listWrapper}>
+             <table className={styles.table}>
+               <tr>
+                 <th>Client Name</th>
+                 <th>Subject</th>
+                 <th>Billing Date</th>
+                 <th className={styles.actionButtons}>action</th>
+               </tr>
+               {
+                 sortedData?.reverse().map((quotation, index) => (
+                   // <Link to={{
+                   //     pathname:`/admin/updateQuotation/${quotation._id}`,
+                   //     state:{quotationData:"vipul"}
+                   // }}
+                   //     >
+                   <tr className={styles.itemRow} key={index}>
+                     <td className={styles.itemName}>{quotation.formData?.name}</td>
+                     <td className={styles.offerPrice}>{quotation.formData?.subject}</td>
+                     <td className={styles.offerPrice}>{formatDate(quotation.formData?.billDate)}</td>
+                     <td className={styles.actionButtons}>
+                       <div onClick={(e)=>handlePrintBtn(e,quotation)}>
+ 
+                         {/* <ReactToPrint
+                           trigger={() => <button className={styles.newRowBtn}  >Save and Print</button>}
+                           content={() => componentRef.current}
+                           onBeforePrint={(e)=>handlePrintBtn(e,quotation)}
+                         /> */}
+                       </div>
+                       <div style={{ display: 'none' }}>
+                         <DocumentPrint ref={componentRef} documentData={componentDataRef.current} />
+                         </div>
+                       <div className={styles.printIconWrapper} onClick={(e)=>handlePrintWrapper(e,quotation)}>
+                         <FontAwesomeIcon icon={faPrint} size='lg' className={styles.printIcon} />
+                       </div>
+                       <div className={styles.editIconWrapper} onClick={(e) => handleEditBtn(e, quotation)}>
+                         <FontAwesomeIcon icon={faPen} className={styles.editIcon} />
+                       </div>
+                       <div className={styles.deleteIconWrapper}  onClick={(e) => handleDeletePopup(e, quotation)}>
+                         {/* <div className={styles.deleteIconWrapper} onClick={(e)=>handleDeletePopup(e,product)}> */}
+                         <FontAwesomeIcon icon={faTrash} className={styles.deleteIcon} />
+                       </div>
+                     </td>
+ 
+                     {/* delete quotation */}
+                     {deletePopup &&
+                       <div>
+                         <div className={styles.deleteItem}>
+                           <div className={styles.delelteModel}>
+                             <div className={styles.delelteModelWrapper}>
+                               {/* edit item head */}
+                               <div className={styles.delelteItemHeaderWrapper}>
+                                 <div className={styles.delelteItemHeadTitle}>Delete Product</div>
+                                 <div className={styles.delelteCrossWrapper} ref={buttonRefEsc} onClick={() => setDeletePopup(false)}><FontAwesomeIcon icon={faXmark} className={styles.delelteCross} /></div>
+                               </div>
+                               <hr />
+ 
+                               {/* product or items data */}
+                               <div className={styles.delelteItemDataWrapper}>
+                                 {/* item name */}
+ 
+                                 <div className={styles.MainItemWrapper}>
+                                   <div className={styles.deleteMsgWrapper}>
+                                     Are you sure you want to delete the product Quotation ?
+                                   </div>
+                                 </div>
+                                 {/* button */}
+                                 <div className={styles.delelteButtonWrapper}>
+                                   <button className={styles.delelteCloseBtn} onClick={() => setDeletePopup(false)}>close</button>
+                                   <button className={styles.delelteSaveChangesBTN} ref={buttonRefEnter}   onClick={() => deleteQuotation(deleteProductDetail._id)}>Confirm Delete</button>
+                                 </div>
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                     }
+                   </tr>
+                   // </Link>
+ 
+ 
+                 ))
+               }
+             </table>
+ 
+             {/* EDIT popup start */}
+             {editPopup &&
+               <UpdateQuotaton />
+             }
+ 
+ 
+           </div>
+           :
+           ""
+       }
+ 
+     </div>
+    }
+   </div>
   )
 }
 

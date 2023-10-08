@@ -23,6 +23,8 @@ const EditProduct = () => {
   const [editPopup, setEditPopup] = useState(false)
   const [deletePopup, setDeletePopup] = useState(false)
   const [deleteProductDetail, setdeleteProductDetail] = useState()
+  const [isLoading,setIsLoading]=useState(true)
+
 
   
 
@@ -32,9 +34,12 @@ const EditProduct = () => {
       .get(`http://localhost:8000/api/product/getProducts`)
       .then((response) => {
         setProductData(response.data.data);
+        setIsLoading(false)
+
       })
       .catch((err) => {
         toast.error("Some error occured ! Please try after some time");
+        setIsLoading(false)
       });
   }
   useEffect(() => {
@@ -47,10 +52,13 @@ const EditProduct = () => {
       formProductData.price.trim() !== "" &&
       formProductData.purchasePrice.trim() !== ""
     );
+
   };
 
   // update product
   const updateProduct = (e) => {
+ 
+
     e.preventDefault()
 
     if (!validateForm()) {
@@ -80,12 +88,14 @@ const EditProduct = () => {
   };
   // deleteProduct
   const deleteProduct = (id) => {
+    setIsLoading(true)
     // e.preventDefault()
     axios
       .post(`http://localhost:8000/api/product/deleteProduct/${id}`)
       .then((response) => {
         // getCategoriesData();
         // toast(response.data.message);
+        setIsLoading(false)
         getProducts()
         // setCategoriesData(response.data.data);
         // setLoading(false)
@@ -94,6 +104,7 @@ const EditProduct = () => {
       })
       .catch((err) => {
         toast.error("Some error occured ! Please try after some time");
+        setIsLoading(true)
       });
   };
 
@@ -121,6 +132,7 @@ const EditProduct = () => {
   }
 
   const handleEditBtn = (e, productDetail) => {
+
     setEditPopup(true)
     // setFormProductData({
     //   ...formProductData,
@@ -162,144 +174,151 @@ const EditProduct = () => {
   }, []);
 
   return (
-    <div className={styles.editProductWrapper}>
-      <div className={styles.editPrdouctHeaderSection}>
-        <div className={styles.editItemHeading}>Items</div>
-        <Link to="/admin/addproduct/"><div className={styles.HeadAddItemBtn}>ADD Product</div></Link>
-        
-      </div>
-      {
-        viewType === "list" ?
-          <div className={styles.listWrapper}>
-            <table className={styles.table}>
-              <tr>
-                <th className={styles.thName}>item name</th>
-                <th className={styles.thPrice}>price</th>
-                <th className={styles.thPprice}>  purchase price</th>
-                <th className={styles.thDescription}>Short Description</th>
-                <th className={styles.actionButtons}>action</th>
-              </tr>
-              {
-                productData?.reverse().map((product, index) => (
-                  <tr className={styles.itemRow} key={index}>
-                    <td className={styles.thName}>{product.name}</td>
-                    <td className={styles.thPrice}>{product.price}</td>
-                    <td className={styles.thPprice}>{product.purchasePrice}</td>
-                    <td className={styles.thDescription}>{product.shortDescription}</td>
-                    <td className={styles.actionButtons}>
-                      {/* <FontAwesomeIcon icon="fa-duotone fa-trash" /> */}
-                      {/* <FontAwesomeIcon icon={faTrash} /> */}
-                      {/* <FontAwesomeIcon icon={duotone("trash")} /> */}
-                      {/* <FontAwesomeIcon icon="fa-solid fa-trash" /> */}
-                      {/* <FontAwesomeIcon icon={solid("trash")} /> */}
-                      {/* <i className="fa-solid fa-trash"></i> */}
-                      <div className={styles.editIconWrapper} onClick={(e) => handleEditBtn(e, product)}>
-                        <FontAwesomeIcon icon={faPen} className={styles.editIcon} />
-                      </div>
-                      <div className={styles.deleteIconWrapper} onClick={(e) => handleDeletePopup(e, product)}>
-                        {/* <div className={styles.deleteIconWrapper} onClick={(e)=>handleDeletePopup(e,product)}> */}
-                        <FontAwesomeIcon icon={faTrash} className={styles.deleteIcon} />
-                      </div>
-                    </td>
-                    {deletePopup &&
-                      <div>
-                        <div className={styles.deleteItem}>
-                          <div className={styles.delelteModel}>
-                            <div className={styles.delelteModelWrapper}>
-                              {/* edit item head */}
-                              <div className={styles.delelteItemHeaderWrapper}>
-                                <div className={styles.delelteItemHeadTitle}>Delete Product</div>
-                                <div className={styles.delelteCrossWrapper} ref={buttonRefEsc} onClick={() => setDeletePopup(false)}><FontAwesomeIcon icon={faXmark} className={styles.delelteCross} /></div>
-                              </div>
-                              <hr />
-
-                              {/* product or items data */}
-                              <div className={styles.delelteItemDataWrapper}>
-                                {/* item name */}
-
-                                <div className={styles.MainItemWrapper}>
-                                  <div className={styles.deleteMsgWrapper}>
-                                    Are you sure you want to delete the product <span className={styles.deleteItemName}>{deleteProductDetail.name}</span> from the <span className={styles.deleteItemName}>{deleteProductDetail.categoryName}</span>  in the menu?
-                                  </div>
-                                </div>
-                                {/* button */}
-                                <div className={styles.delelteButtonWrapper}>
-                                  <button className={styles.delelteCloseBtn} onClick={() => setDeletePopup(false)}>close</button>
-                                  <button className={styles.delelteSaveChangesBTN}  ref={buttonRefEnter} onClick={() => deleteProduct(deleteProductDetail._id)}>Confirm Delete</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    }
-                  </tr>
-
-                ))
-              }
-            </table>
-
-            {/* EDIT popup start */}
-            {editPopup &&
-              <div className={styles.editItem}>
-                <div className={styles.editModel}>
-                  <div className={styles.editModelWrapper}>
-                    {/* edit item head */}
-                    <div className={styles.editItemHeaderWrapper}>
-                      <div className={styles.editItemHeadTitle}>Edit Product</div>
-                      <div className={styles.editCrossWrapper} ref={buttonRefEsc} onClick={() => setEditPopup(false)}><FontAwesomeIcon icon={faXmark} className={styles.editCross} /></div>
-                    </div>
-                    <hr />
-
-                    {/* product or items data */}
-                    <div className={styles.EditItemDataWrapper}>
-                      {/* item name */}
-
-                      <div className={styles.MainItemWrapper}>
-                        {/* product Price */}
-                        <div className={styles.productWrapper}>
-                          <div className={styles.productName}>Item Name</div>
-                          <input type="text" className={styles.productInput} name="name" value={formProductData.name} onChange={(e) => handleOnEditProductChange(e)} />
-                        </div>
-
-                      </div>
-                      <div className={styles.prdouctPriceAndDiscontedPriceWrapper}>
-                        {/* product Price */}
-                        <div className={styles.productWrapper}>
-                          <div className={styles.productName}>Price</div>
-                          <input type="number" className={styles.productInput} name="price" value={formProductData.price} onChange={(e) => handleOnEditProductChange(e)} />
-                        </div>
-                        {/* product Price */}
-                        <div className={styles.productWrapper}>
-                          <div className={styles.productName}>Purchase Price</div>
-                          <input type="number" className={styles.productInput} name="purchasePrice" value={formProductData.purchasePrice} onChange={(e) => handleOnEditProductChange(e)} />
-                        </div>
-                      
-                        {/* product Discounted Price */}
-                        <div className={styles.productWrapper}>
-                          <div className={styles.productName}>Short Description</div>
-                          <input type="text" className={styles.productInput} name="shortDescription" value={formProductData.shortDescription} onChange={(e) => handleOnEditProductChange(e)} />
-                        </div>
-                      </div>
-                      <hr />
-                      {/* button */}
-                      <div className={styles.editButtonWrapper}>
-                        <button className={styles.editCloseBtn} onClick={() => setEditPopup(false)}>close</button>
-                        <button className={styles.EditSaveChangesBTN} ref={buttonRefEnter} onClick={updateProduct}>save changes</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            }
-
-
-          </div>
-          :
-          ""
-      }
-
-    </div>
+   <div>
+    {isLoading?
+<div className='LoaderWrapper'>
+  <span className='loader'></span>
+</div>:
+       <div className={styles.editProductWrapper}>
+       <div className={styles.editPrdouctHeaderSection}>
+         <div className={styles.editItemHeading}>Items</div>
+         <Link to="/admin/addproduct/"><div className={styles.HeadAddItemBtn}>ADD Product</div></Link>
+         
+       </div>
+       {
+         viewType === "list" ?
+           <div className={styles.listWrapper}>
+             <table className={styles.table}>
+               <tr>
+                 <th className={styles.thName}>item name</th>
+                 <th className={styles.thPrice}>price</th>
+                 <th className={styles.thPprice}>  purchase price</th>
+                 <th className={styles.thDescription}>Short Description</th>
+                 <th className={styles.actionButtons}>action</th>
+               </tr>
+               {
+                 productData?.reverse().map((product, index) => (
+                   <tr className={styles.itemRow} key={index}>
+                     <td className={styles.thName}>{product.name}</td>
+                     <td className={styles.thPrice}>{product.price}</td>
+                     <td className={styles.thPprice}>{product.purchasePrice}</td>
+                     <td className={styles.thDescription}>{product.shortDescription}</td>
+                     <td className={styles.actionButtons}>
+                       {/* <FontAwesomeIcon icon="fa-duotone fa-trash" /> */}
+                       {/* <FontAwesomeIcon icon={faTrash} /> */}
+                       {/* <FontAwesomeIcon icon={duotone("trash")} /> */}
+                       {/* <FontAwesomeIcon icon="fa-solid fa-trash" /> */}
+                       {/* <FontAwesomeIcon icon={solid("trash")} /> */}
+                       {/* <i className="fa-solid fa-trash"></i> */}
+                       <div className={styles.editIconWrapper} onClick={(e) => handleEditBtn(e, product)}>
+                         <FontAwesomeIcon icon={faPen} className={styles.editIcon} />
+                       </div>
+                       <div className={styles.deleteIconWrapper} onClick={(e) => handleDeletePopup(e, product)}>
+                         {/* <div className={styles.deleteIconWrapper} onClick={(e)=>handleDeletePopup(e,product)}> */}
+                         <FontAwesomeIcon icon={faTrash} className={styles.deleteIcon} />
+                       </div>
+                     </td>
+                     {deletePopup &&
+                       <div>
+                         <div className={styles.deleteItem}>
+                           <div className={styles.delelteModel}>
+                             <div className={styles.delelteModelWrapper}>
+                               {/* edit item head */}
+                               <div className={styles.delelteItemHeaderWrapper}>
+                                 <div className={styles.delelteItemHeadTitle}>Delete Product</div>
+                                 <div className={styles.delelteCrossWrapper} ref={buttonRefEsc} onClick={() => setDeletePopup(false)}><FontAwesomeIcon icon={faXmark} className={styles.delelteCross} /></div>
+                               </div>
+                               <hr />
+ 
+                               {/* product or items data */}
+                               <div className={styles.delelteItemDataWrapper}>
+                                 {/* item name */}
+ 
+                                 <div className={styles.MainItemWrapper}>
+                                   <div className={styles.deleteMsgWrapper}>
+                                     Are you sure you want to delete the product <span className={styles.deleteItemName}>{deleteProductDetail.name}</span> from the <span className={styles.deleteItemName}>{deleteProductDetail.categoryName}</span>  in the menu?
+                                   </div>
+                                 </div>
+                                 {/* button */}
+                                 <div className={styles.delelteButtonWrapper}>
+                                   <button className={styles.delelteCloseBtn} onClick={() => setDeletePopup(false)}>close</button>
+                                   <button className={styles.delelteSaveChangesBTN}  ref={buttonRefEnter} onClick={() => deleteProduct(deleteProductDetail._id)}>Confirm Delete</button>
+                                 </div>
+                               </div>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                     }
+                   </tr>
+ 
+                 ))
+               }
+             </table>
+ 
+             {/* EDIT popup start */}
+             {editPopup &&
+               <div className={styles.editItem}>
+                 <div className={styles.editModel}>
+                   <div className={styles.editModelWrapper}>
+                     {/* edit item head */}
+                     <div className={styles.editItemHeaderWrapper}>
+                       <div className={styles.editItemHeadTitle}>Edit Product</div>
+                       <div className={styles.editCrossWrapper} ref={buttonRefEsc} onClick={() => setEditPopup(false)}><FontAwesomeIcon icon={faXmark} className={styles.editCross} /></div>
+                     </div>
+                     <hr />
+ 
+                     {/* product or items data */}
+                     <div className={styles.EditItemDataWrapper}>
+                       {/* item name */}
+ 
+                       <div className={styles.MainItemWrapper}>
+                         {/* product Price */}
+                         <div className={styles.productWrapper}>
+                           <div className={styles.productName}>Item Name</div>
+                           <input type="text" className={styles.productInput} name="name" value={formProductData.name} onChange={(e) => handleOnEditProductChange(e)} />
+                         </div>
+ 
+                       </div>
+                       <div className={styles.prdouctPriceAndDiscontedPriceWrapper}>
+                         {/* product Price */}
+                         <div className={styles.productWrapper}>
+                           <div className={styles.productName}>Price</div>
+                           <input type="number" className={styles.productInput} name="price" value={formProductData.price} onChange={(e) => handleOnEditProductChange(e)} />
+                         </div>
+                         {/* product Price */}
+                         <div className={styles.productWrapper}>
+                           <div className={styles.productName}>Purchase Price</div>
+                           <input type="number" className={styles.productInput} name="purchasePrice" value={formProductData.purchasePrice} onChange={(e) => handleOnEditProductChange(e)} />
+                         </div>
+                       
+                         {/* product Discounted Price */}
+                         <div className={styles.productWrapper}>
+                           <div className={styles.productName}>Short Description</div>
+                           <input type="text" className={styles.productInput} name="shortDescription" value={formProductData.shortDescription} onChange={(e) => handleOnEditProductChange(e)} />
+                         </div>
+                       </div>
+                       <hr />
+                       {/* button */}
+                       <div className={styles.editButtonWrapper}>
+                         <button className={styles.editCloseBtn} onClick={() => setEditPopup(false)}>close</button>
+                         <button className={styles.EditSaveChangesBTN} ref={buttonRefEnter} onClick={updateProduct}>save changes</button>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             }
+ 
+ 
+           </div>
+           :
+           ""
+       }
+ 
+     </div>
+    }
+   </div>
   )
 }
 
