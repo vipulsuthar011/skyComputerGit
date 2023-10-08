@@ -334,7 +334,7 @@ width: 100%;
     width: 100%;
     overflow: auto; /* Enable scroll if needed */
 	/* background-color: rgb(0,0,0);  */
-	background-color: rgba(0,0,0,0.05); /* Black w/ opacity */
+	background-color: rgba(0,0,0,0.01); /* Black w/ opacity */
     z-index: 11;
 
 }

@@ -55,7 +55,7 @@ const AddItems = ({ btnActive }) => {
             })
             .then((response) => {
                 setFormProductData(initalProductData)
-                navigation('/admin/quotationhistory/')
+                navigation('/admin/editproduct/')
                 toast(response.data.message);
                 setIsLoading(false)
             })

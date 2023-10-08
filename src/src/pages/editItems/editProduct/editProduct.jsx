@@ -46,14 +46,13 @@ const EditProduct = () => {
     getProducts()
   }, []);
 
-  const validateForm = () => {
-    return (
-      formProductData.name.trim() !== "" &&
-      formProductData.price.trim() !== "" &&
-      formProductData.purchasePrice.trim() !== ""
-    );
-
-  };
+  // const validateForm = () => {
+  //   return (
+  //     formProductData.name.trim() !== "" &&
+  //     formProductData.price.trim() !== "" &&
+  //     formProductData.purchasePrice.trim() !== ""
+  //   );
+  // };
 
   // update product
   const updateProduct = (e) => {
@@ -61,10 +60,11 @@ const EditProduct = () => {
 
     e.preventDefault()
 
-    if (!validateForm()) {
-      toast.error('Please fill in all required fields.');
-      return;
-    }
+    // if (!validateForm()) {
+    //   toast.error('Please fill in all required fields.');
+    //   return;
+    // }
+    setIsLoading(true)
 
     axios
       .post(`http://localhost:8000/api/product/updateProduct/${formProductData._id}`, formProductData, {
@@ -77,6 +77,7 @@ const EditProduct = () => {
         // toast(response.data.message);
         // setOpenProductModal(false)  
         getProducts()
+        setIsLoading(false)
         // setCategoriesData(response.data.data);
         // setLoading(false)
         setEditPopup(false)
@@ -84,6 +85,7 @@ const EditProduct = () => {
       })
       .catch((err) => {
         toast.error("Some error occured ! Please try after some time");
+        setIsLoading(true)
       });
   };
   // deleteProduct
@@ -258,7 +260,7 @@ const EditProduct = () => {
  
              {/* EDIT popup start */}
              {editPopup &&
-               <div className={styles.editItem}>
+               <form className={styles.editItem} onSubmit={updateProduct}>
                  <div className={styles.editModel}>
                    <div className={styles.editModelWrapper}>
                      {/* edit item head */}
@@ -276,7 +278,7 @@ const EditProduct = () => {
                          {/* product Price */}
                          <div className={styles.productWrapper}>
                            <div className={styles.productName}>Item Name</div>
-                           <input type="text" className={styles.productInput} name="name" value={formProductData.name} onChange={(e) => handleOnEditProductChange(e)} />
+                           <input type="text" className={styles.productInput} name="name" value={formProductData.name} onChange={(e) => handleOnEditProductChange(e)} required/>
                          </div>
  
                        </div>
@@ -284,12 +286,12 @@ const EditProduct = () => {
                          {/* product Price */}
                          <div className={styles.productWrapper}>
                            <div className={styles.productName}>Price</div>
-                           <input type="number" className={styles.productInput} name="price" value={formProductData.price} onChange={(e) => handleOnEditProductChange(e)} />
+                           <input type="number" className={styles.productInput} name="price" value={formProductData.price} onChange={(e) => handleOnEditProductChange(e)} required />
                          </div>
                          {/* product Price */}
                          <div className={styles.productWrapper}>
                            <div className={styles.productName}>Purchase Price</div>
-                           <input type="number" className={styles.productInput} name="purchasePrice" value={formProductData.purchasePrice} onChange={(e) => handleOnEditProductChange(e)} />
+                           <input type="number" className={styles.productInput} name="purchasePrice" value={formProductData.purchasePrice} onChange={(e) => handleOnEditProductChange(e)} required />
                          </div>
                        
                          {/* product Discounted Price */}
@@ -302,12 +304,12 @@ const EditProduct = () => {
                        {/* button */}
                        <div className={styles.editButtonWrapper}>
                          <button className={styles.editCloseBtn} onClick={() => setEditPopup(false)}>close</button>
-                         <button className={styles.EditSaveChangesBTN} ref={buttonRefEnter} onClick={updateProduct}>save changes</button>
+                         <button className={styles.EditSaveChangesBTN} ref={buttonRefEnter}  type='submit'>save changes</button>
                        </div>
                      </div>
                    </div>
                  </div>
-               </div>
+               </form>
              }
  
  
