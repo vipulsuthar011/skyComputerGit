@@ -11,9 +11,9 @@ import ReactToPrint, { useReactToPrint } from 'react-to-print';
 import { toast } from 'react-toastify';
 
 
-const Billing = ({sideView,setSideView}) => {
+const Billing = ({ sideView, setSideView }) => {
   // setSideView(false)
-  
+
   const [grandTotal, setGrandTotal] = useState(0)
   // const [purchaseTotal, setPurchaseTotal] = useState(0)
   const [profitTotal, setProfitTotal] = useState(0)
@@ -107,7 +107,7 @@ const Billing = ({sideView,setSideView}) => {
     updatedItems[index].purchasePrice = selectedOption.purchasePrice;
     updatedItems[index].quantity = 1; // Default quantity is 1
     updatedItems[index].total = calculateTotalAmount(updatedItems[index]);
-    updatedItems[index].purchasePriceTotal =calculatePurchaseTotalAmount(updatedItems[index]) ;
+    updatedItems[index].purchasePriceTotal = calculatePurchaseTotalAmount(updatedItems[index]);
 
     setItems(updatedItems);
   };
@@ -125,7 +125,7 @@ const Billing = ({sideView,setSideView}) => {
   const handlePurchasePriceChange = (event, index) => {
     const updatedItems = [...items];
     updatedItems[index].purchasePrice = event.target.value;
-    updatedItems[index].purchasePriceTotal =calculatePurchaseTotalAmount(updatedItems[index]) ;
+    updatedItems[index].purchasePriceTotal = calculatePurchaseTotalAmount(updatedItems[index]);
 
     // updatedItems[index].total = calculateTotalAmount(updatedItems[index]);
     setItems(updatedItems);
@@ -133,7 +133,7 @@ const Billing = ({sideView,setSideView}) => {
     // Calculate and set the grand total
     const purchaseTotal = updatedItems.reduce((purchasePriceTotal, item) => parseInt(purchasePriceTotal) + parseInt(item.purchasePriceTotal), 0);
     // setPurchaseTotal(grandTotal);
-    const profitCalulate=grandTotal-purchaseTotal
+    const profitCalulate = grandTotal - purchaseTotal
     setProfitTotal(profitCalulate)
   };
 
@@ -141,19 +141,19 @@ const Billing = ({sideView,setSideView}) => {
     const updatedItems = [...items];
     updatedItems[index].quantity = event.target.value;
     updatedItems[index].total = calculateTotalAmount(updatedItems[index]);
-    updatedItems[index].purchasePriceTotal =calculatePurchaseTotalAmount(updatedItems[index]) ;
+    updatedItems[index].purchasePriceTotal = calculatePurchaseTotalAmount(updatedItems[index]);
 
     setItems(updatedItems);
 
     // Calculate and set the grand total
     const grandTotal = updatedItems.reduce((total, item) => total + item.total, 0);
     setGrandTotal(grandTotal);
-    
-     // Calculate and set the grand total
+
+    // Calculate and set the grand total
     const purchaseTotal = updatedItems.reduce((purchasePriceTotal, item) => parseInt(purchasePriceTotal) + parseInt(item.purchasePriceTotal), 0);
 
     // setPurchaseTotal(grandTotal);
-    const profitCalulate=grandTotal-purchaseTotal
+    const profitCalulate = grandTotal - purchaseTotal
     setProfitTotal(profitCalulate)
   };
 
@@ -162,7 +162,7 @@ const Billing = ({sideView,setSideView}) => {
     // Calculate the initial grand total
     const initialGrandTotal = items.reduce((total, item) => total + item.total, 0);
     const initialPurchaseTotal = items.reduce((purchasePriceTotal, item) => purchasePriceTotal + item.purchasePriceTotal, 0);
-    const intialProfitTotal=initialGrandTotal-initialPurchaseTotal
+    const intialProfitTotal = initialGrandTotal - initialPurchaseTotal
 
     // setPurchaseTotal(initialPurchaseTotal);
     setGrandTotal(initialGrandTotal);
@@ -172,7 +172,7 @@ const Billing = ({sideView,setSideView}) => {
 
 
   const handleAddRow = () => {
-    setItems([...items, { label: '', price: 0,purchasePrice:0,purchaseTotal:0,purchasePriceTotal:0, quantity: 0, total: 0 }]);
+    setItems([...items, { label: '', price: 0, purchasePrice: 0, purchaseTotal: 0, purchasePriceTotal: 0, quantity: 0, total: 0 }]);
   };
 
   const handleRemoveRow = (index) => {
@@ -183,7 +183,7 @@ const Billing = ({sideView,setSideView}) => {
 
   // Custom component to remove the dropdown indicator
   const DropdownIndicator = (props) => {
-    return <components.IndicatorsContainer {...props} style={{ display: 'none' }} />;
+    return <components.IndicatorsContainer {...props} style={{ display: 'block' }} />;
   };
 
   const handleBillReset = () => {
@@ -200,7 +200,7 @@ const Billing = ({sideView,setSideView}) => {
     setGrandTotal(0);
   }
 
-  const documentData = ({ items, grandTotal, formData,profitTotal });
+  const documentData = ({ items, grandTotal, formData, profitTotal });
 
 
 
@@ -311,21 +311,21 @@ const Billing = ({sideView,setSideView}) => {
           <table className={styles.billTable}>
             <thead>
               <tr>
-                <th>Sr.NO.</th>
-                <th>Item Name</th>
-                <th>Price</th>
-                <th>Purchase Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Action</th>
+                <th className={styles.thSrNo}>Sr.NO.</th>
+                <th className={styles.thName}>Item Name</th>
+                <th className={styles.thPrice}>Price</th>
+                <th className={styles.thPprice}>Purchase Price</th>
+                <th className={styles.thQuantity}>Quantity</th>
+                <th className={styles.thTotal}>Total</th>
+                <th className={styles.thAction}>Action</th>
               </tr>
             </thead>
             <tbody>
               {items.map((item, index) => (
                 <tr key={index}>
-                  <td>{index + 1}</td>
+                  <td className={styles.thSrNo}>{index + 1}</td>
 
-                  <td>
+                  <td className={styles.thName}>
                     <Select
                       value={item}
 
@@ -368,9 +368,12 @@ const Billing = ({sideView,setSideView}) => {
                         handleProductChange(selectedOption, index)
                       }
                       isSearchable
+                      // placeholder="vipul selected"
+
                     />
                   </td>
-                  <td>
+
+                  <td className={styles.thPrice}>
                     <FontAwesomeIcon icon={faIndianRupeeSign} className='pr-1' />
                     <input
                       type="number"
@@ -378,7 +381,7 @@ const Billing = ({sideView,setSideView}) => {
                       onChange={(event) => handlePriceChange(event, index)}
                     />
                   </td>
-                  <td>
+                  <td className={styles.thPprice}>
                     <FontAwesomeIcon icon={faIndianRupeeSign} className='pr-1' />
                     <input
                       type="number"
@@ -386,7 +389,7 @@ const Billing = ({sideView,setSideView}) => {
                       onChange={(event) => handlePurchasePriceChange(event, index)}
                     />
                   </td>
-                  <td>
+                  <td className={styles.thQuantity}>
                     <input
                       type="number"
                       value={item.quantity}
@@ -402,25 +405,25 @@ const Billing = ({sideView,setSideView}) => {
                     </div>
                   </td>
                 </tr>
-                
+
               ))}
               {/* profit sell collum */}
               {/* sell row */}
               <tr>
-                    <td colSpan={4} rowSpan={2}></td>
-                    <td>Total Sell</td>
-                    <td colSpan={2}><FontAwesomeIcon icon={faIndianRupeeSign} /> {grandTotal} /-</td>
+                <td colSpan={4} rowSpan={2}></td>
+                <td>Total Sell</td>
+                <td colSpan={2}><FontAwesomeIcon icon={faIndianRupeeSign} /> {grandTotal} /-</td>
               </tr>
               {/* profit row */}
               <tr>
-                    <td>Total Profit(Loss)</td>
-                    <td colSpan={2}><FontAwesomeIcon icon={faIndianRupeeSign} /> {profitTotal} /-</td>
+                <td>Total Profit(Loss)</td>
+                <td colSpan={2}><FontAwesomeIcon icon={faIndianRupeeSign} /> {profitTotal} /-</td>
               </tr>
             </tbody>
           </table>
 
           {/* profit section */}
-          
+
           {/* profit section end */}
 
 
